@@ -2,5 +2,14 @@
   "$schema": "https://www.schemastore.org/prettierrc.json",
   "printWidth": 100,
   "semi": false,
-  "singleQuote": true
+  "singleQuote": true,
+  "plugins": ["prettier-plugin-astro"],
+  "overrides": [
+    {
+      "files": "*.astro",
+      "options": {
+        "parser": "astro"
+      }
+    }
+  ]
 }

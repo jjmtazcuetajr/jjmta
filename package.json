@@ -20,9 +20,15 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "format": "prettier \"**/*.{js,jsx,ts,tsx,css,md,vue,astro}\" --write",
+    "format:check": "prettier \"**/*.{js,jsx,ts,tsx,css,md,vue,astro}\" --check"
   },
   "dependencies": {
     "astro": "^5.16.11"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.0",
+    "prettier-plugin-astro": "^0.14.1"
   }
 }
