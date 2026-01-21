@@ -1,7 +1,21 @@
 {
-  "name": "",
+  "name": "jjmta",
   "type": "module",
   "version": "0.0.1",
+  "private": true,
+  "description": "My web dev portfolio built with Astro.",
+  "author": {
+    "name": "Jose Jenn Michael Azcueta"
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jjmtazcuetajr/jjmta.git"
+  },
+  "homepage": "https://github.com/jjmtazcuetajr/jjmta.git#readme",
+  "bugs": {
+    "url": "https://github.com/jjmtazcuetajr/jjmta/issues"
+  },
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
