@@ -1,0 +1,12 @@
+@use '../utilities/variables' as v;
+
+.container {
+  width: v.$full-size;
+  height: v.$full-size;
+  background: {
+    color: #111;
+    image: linear-gradient(32deg, rgba(8, 8, 8, 0.74) 30px, transparent);
+    size: 60px 60px;
+    position: -5px -5px;
+  }
+}
