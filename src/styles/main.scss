@@ -2,7 +2,7 @@
 @use './utilities/variables';
 
 // 2. Layout
-@use './layout/body';
+@use './layout/index';
 
 // 3. Components
-@use './components/welcome';
+@use './components/background';

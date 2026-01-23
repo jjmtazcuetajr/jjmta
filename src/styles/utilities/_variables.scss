@@ -1,1 +1,7 @@
-$full-size: 100%;
+$positions: (
+  'absolute': absolute,
+  'fixed': fixed,
+  'relative': relative,
+  'static': static,
+  'sticky': sticky,
+);

@@ -1,0 +1,10 @@
+@use 'sass:map';
+@use '../utilities/variables' as *;
+
+@mixin position($type) {
+  @if map.has-key($positions, $type) {
+    position: map.get($positions, $type);
+  } @else {
+    @warn "Position type '#{$type}' not found in $positions map";
+  }
+}

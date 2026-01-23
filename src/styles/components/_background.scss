@@ -1,4 +1,4 @@
-@use '../utilities/variables' as v;
+@use '../utilities/mixins' as *;
 
 /*!
   Description: Pattern background
@@ -7,9 +7,9 @@
   Available at: https://uiverse.io/HarryHeywood04/ugly-squid-22
   License: MIT
 */
-.container {
-  width: v.$full-size;
-  height: v.$full-size;
+.background {
+  @include position('fixed');
+  inset: 0;
   background: {
     color: #111;
     image: linear-gradient(32deg, rgba(8, 8, 8, 0.74) 30px, transparent);
