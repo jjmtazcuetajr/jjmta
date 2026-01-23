@@ -1,5 +1,3 @@
-@use '../utilities/mixins' as *;
-
 /*!
   Description: Pattern background
   Author: HarryHeywood04
@@ -8,7 +6,7 @@
   License: MIT
 */
 .background {
-  @include position('fixed');
+  position: fixed;
   inset: 0;
   background: {
     color: #111;
