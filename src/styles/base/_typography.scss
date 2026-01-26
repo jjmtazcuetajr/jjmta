@@ -1,0 +1,10 @@
+@use '../abstracts/variables' as *;
+
+body {
+  color: $text-color;
+  font: {
+    family: Verdana, Geneva, Tahoma, sans-serif;
+    size: 1rem;
+    weight: 400;
+  }
+}

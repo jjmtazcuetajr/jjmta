@@ -1,0 +1,31 @@
+@use 'variables' as *;
+
+@mixin respond-to($screen-size) {
+  @if $screen-size == 'sm' {
+    @media screen and (min-width: $breakpoint-sm) {
+      @content;
+    }
+  } @else if $screen-size == 'md' {
+    @media screen and (min-width: $breakpoint-md) {
+      @content;
+    }
+  } @else if $screen-size == 'lg' {
+    @media screen and (min-width: $breakpoint-lg) {
+      @content;
+    }
+  } @else if $screen-size == 'xl' {
+    @media screen and (min-width: $breakpoint-xl) {
+      @content;
+    }
+  } @else if $screen-size == '2xl' {
+    @media screen and (min-width: $breakpoint-2xl) {
+      @content;
+    }
+  }
+}
+
+@mixin hover-capable {
+  @media (hover: hover) and (pointer: fine) {
+    @content;
+  }
+}

@@ -1,5 +1,11 @@
-// layout
-@use './layout/index';
+// abstracts
+@use './abstracts/variables';
+@use './abstracts/mixins';
+
+// base
+@use './base/reset';
+@use './base/typography';
 
 // components
 @use './components/background';
+@use './components/navbar';

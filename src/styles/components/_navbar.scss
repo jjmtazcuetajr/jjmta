@@ -1,0 +1,83 @@
+@use '../abstracts/mixins' as *;
+
+.navbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  padding: 0.5rem;
+  z-index: 1000;
+  border: {
+    width: 1px;
+    style: solid;
+    color: rgba(255, 255, 255, 0.15);
+    radius: 1rem 1rem 0 0;
+  }
+
+  @include respond-to('sm') {
+    bottom: auto;
+    top: 0;
+    border-radius: unset;
+  }
+}
+
+.nav-menu {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 1.5rem;
+  width: 100%;
+}
+
+.nav-link {
+  opacity: 0.6;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  align-items: center;
+  position: relative;
+  transition: opacity 0.3s ease;
+  font: {
+    size: 0.75rem;
+    weight: 500;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 2px;
+    background: #fff;
+    transition: width 0.3s ease;
+  }
+
+  @include respond-to('sm') {
+    font-size: inherit;
+  }
+
+  @include hover-capable {
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:hover::before {
+      width: 80%;
+    }
+  }
+
+  > .icon {
+    @include respond-to('sm') {
+      display: none;
+    }
+  }
+
+  > .text {
+    text-transform: capitalize;
+  }
+}
