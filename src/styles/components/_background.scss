@@ -6,12 +6,12 @@
   License: MIT
 */
 .background {
-  position: fixed;
   inset: 0;
+  position: fixed;
   background: {
     color: #111;
-    image: linear-gradient(32deg, rgba(8, 8, 8, 0.74) 30px, transparent);
-    size: 60px 60px;
+    image: linear-gradient(32deg, rgb(8 8 8 / 74%) 30px, transparent);
     position: -5px -5px;
+    size: 60px 60px;
   }
 }

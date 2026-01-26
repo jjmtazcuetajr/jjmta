@@ -22,7 +22,9 @@
     "preview": "astro preview",
     "astro": "astro",
     "format": "prettier . --write",
-    "format:check": "prettier . --check"
+    "format:check": "prettier . --check",
+    "lint:scss": "stylelint \"**/*.scss\"",
+    "lint:scss:fix": "stylelint \"**/*.scss\" --fix"
   },
   "dependencies": {
     "astro": "^5.16.11"
@@ -30,6 +32,9 @@
   "devDependencies": {
     "prettier": "^3.8.0",
     "prettier-plugin-astro": "^0.14.1",
-    "sass": "^1.97.3"
+    "sass": "^1.97.3",
+    "stylelint": "^17.0.0",
+    "stylelint-config-standard-scss": "^17.0.0",
+    "stylelint-order": "^7.0.1"
   }
 }
