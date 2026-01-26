@@ -26,3 +26,6 @@ jobs:
 
       - name: Lint SCSS
         run: npm run lint:scss:fix
+
+      - name: Lint Astro
+        run: npm run lint:fix
