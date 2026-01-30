@@ -1,6 +1,6 @@
 @use '../abstracts/mixins' as *;
 
-.navbar {
+.nav-bar {
   backdrop-filter: blur(10px);
   background: rgb(0 0 0 / 40%);
   bottom: 0;
@@ -21,56 +21,60 @@
     bottom: auto;
     top: 0;
   }
+
+  > .navmenu {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-evenly;
+    width: 100%;
+  }
 }
 
-.nav-menu {
-  display: flex;
-  gap: 1.5rem;
-  justify-content: space-evenly;
-  width: 100%;
+.navmenu {
+  .navlink {
+    align-items: center;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+    opacity: 0.6;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: opacity 0.3s ease;
+    font: {
+      size: 0.75rem;
+      weight: 500;
+    }
+
+    &::before {
+      background: #fff;
+      bottom: 0;
+      content: '';
+      height: 2px;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+      transition: width 0.3s ease;
+      width: 0;
+    }
+
+    @include respond-to('sm') {
+      font-size: inherit;
+    }
+
+    @include hover-capable {
+      &:hover {
+        opacity: 0.9;
+      }
+
+      &:hover::before {
+        width: 80%;
+      }
+    }
+  }
 }
 
-.nav-link {
-  align-items: center;
-  border-radius: 8px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.2rem;
-  opacity: 0.6;
-  padding: 0.5rem 1rem;
-  position: relative;
-  transition: opacity 0.3s ease;
-  font: {
-    size: 0.75rem;
-    weight: 500;
-  }
-
-  &::before {
-    background: #fff;
-    bottom: 0;
-    content: '';
-    height: 2px;
-    left: 50%;
-    position: absolute;
-    transform: translateX(-50%);
-    transition: width 0.3s ease;
-    width: 0;
-  }
-
-  @include respond-to('sm') {
-    font-size: inherit;
-  }
-
-  @include hover-capable {
-    &:hover {
-      opacity: 0.9;
-    }
-
-    &:hover::before {
-      width: 80%;
-    }
-  }
-
+.navlink {
   > .icon {
     @include respond-to('sm') {
       display: none;
