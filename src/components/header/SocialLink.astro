@@ -10,23 +10,23 @@ const { url, ariaLabel, iconName, isMailto = false } = Astro.props
 ---
 
 <a
-  href={url}
-  aria-label={ariaLabel}
   class="btn"
-  target={isMailto ? undefined : '_blank'}
+  href={url}
   rel={isMailto ? undefined : 'noopener noreferrer'}
+  target={isMailto ? undefined : '_blank'}
+  aria-label={ariaLabel}
 >
   <svg
-    xmlns="http://www.w3.org/2000/svg"
-    width="24"
+    class={`lucide lucide-${iconName}-icon lucide-${iconName}`}
     height="24"
-    viewBox="0 0 24 24"
+    width="24"
     fill="none"
     stroke="currentColor"
-    stroke-width="2"
     stroke-linecap="round"
     stroke-linejoin="round"
-    class={`lucide lucide-${iconName}-icon lucide-${iconName}`}
+    stroke-width="2"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
   >
     <slot />
   </svg>
