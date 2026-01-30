@@ -2,7 +2,7 @@
 
 .nav-bar {
   backdrop-filter: blur(10px);
-  background: rgb(0 0 0 / 40%);
+  background-color: oklch(0% 0 0deg / 40%);
   bottom: 0;
   left: 0;
   padding: 0.5rem;
@@ -10,7 +10,7 @@
   right: 0;
   z-index: 1000;
   border: {
-    color: rgb(255 255 255 / 15%);
+    color: oklch(100% 0 0deg / 15%);
     radius: 1rem 1rem 0 0;
     style: solid;
     width: 1px;
@@ -47,7 +47,7 @@
     }
 
     &::before {
-      background: #fff;
+      background-color: oklch(100% 0 0deg);
       bottom: 0;
       content: '';
       height: 2px;
