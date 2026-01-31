@@ -6,6 +6,7 @@
     "scss/at-rule-no-unknown": true,
     "color-named": "never",
     "declaration-block-no-redundant-longhand-properties": true,
-    "shorthand-property-no-redundant-values": true
+    "shorthand-property-no-redundant-values": true,
+    "selector-class-pattern": "^[a-z0-9\\-]+$"
   }
 }
