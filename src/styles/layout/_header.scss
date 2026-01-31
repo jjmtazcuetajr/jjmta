@@ -27,27 +27,3 @@
     }
   }
 }
-
-.social-links {
-  display: flex;
-  gap: 1.5rem;
-
-  > .btn {
-    color: oklch(50.8% 0.118 165.612deg);
-    padding: 1rem;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
-    border: {
-      color: oklch(37.1% 0 0deg);
-      radius: 1rem;
-      style: solid;
-      width: 1px;
-    }
-
-    &:hover {
-      background-color: oklch(20.5% 0 0deg);
-      color: oklch(62.7% 0.194 149.214deg);
-    }
-  }
-}
