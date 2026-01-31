@@ -1,32 +1,29 @@
 ---
 interface Props {
-  url: string
   ariaLabel: string
-  iconName: string
   isMailto?: boolean
+  url: string
+  variant: 'linkedin' | 'github' | 'gmail'
+  viewBox?: string
 }
 
-const { url, ariaLabel, iconName, isMailto = false } = Astro.props
+const { ariaLabel, isMailto = false, url, variant, viewBox = '0 0 16 16' } = Astro.props
 ---
 
 <a
-  class="btn"
+  class={`btn -${variant}`}
   href={url}
   rel={isMailto ? undefined : 'noopener noreferrer'}
   target={isMailto ? undefined : '_blank'}
   aria-label={ariaLabel}
 >
   <svg
-    class={`lucide lucide-${iconName}-icon lucide-${iconName}`}
     height="24"
     width="24"
-    fill="none"
-    stroke="currentColor"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    stroke-width="2"
-    viewBox="0 0 24 24"
+    fill="currentColor"
+    viewBox={viewBox}
     xmlns="http://www.w3.org/2000/svg"
+    aria-hidden="true"
   >
     <slot />
   </svg>

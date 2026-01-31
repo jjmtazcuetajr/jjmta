@@ -3,21 +3,50 @@
   gap: 1.5rem;
 
   > .btn {
-    color: oklch(50.8% 0.118 165.612deg);
-    padding: 1rem;
-    transition:
-      background-color 0.2s ease,
-      color 0.2s ease;
-    border: {
-      color: oklch(37.1% 0 0deg);
-      radius: 1rem;
-      style: solid;
-      width: 1px;
+    border-radius: 0.5rem;
+    color: oklch(100% 0 0deg);
+    overflow: hidden;
+    padding: 0.5rem;
+    position: relative;
+    transition: {
+      duration: 300ms;
+      property: color, transform;
+      timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::after {
+      background-color: oklch(100% 0 0deg);
+      border-radius: 0.5rem;
+      content: '';
+      inset: 0;
+      position: absolute;
+      transform: translateX(-100%) translateY(100%);
+      z-index: -10;
+      transition: {
+        duration: 300ms;
+        property: transform;
+        timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
     }
 
     &:hover {
-      background-color: oklch(20.5% 0 0deg);
-      color: oklch(62.7% 0.194 149.214deg);
+      transform: scale(1.05);
+    }
+
+    &:hover::after {
+      transform: translateX(0) translateY(0);
+    }
+
+    &.-linkedin:hover {
+      color: oklch(54.58% 0.13 242.27deg);
+    }
+
+    &.-github:hover {
+      color: oklch(0% 0 0deg);
+    }
+
+    &.-gmail:hover {
+      color: oklch(62.57% 0.206 29.08deg);
     }
   }
 }
