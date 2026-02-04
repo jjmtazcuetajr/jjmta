@@ -1,0 +1,26 @@
+---
+interface Props {
+  ariaLabel: string
+  textContent: string
+  url: string
+}
+
+const { ariaLabel, textContent, url } = Astro.props
+---
+
+<a class="btn" href={url} rel="noopener noreferrer" target="_blank" aria-label={ariaLabel}>
+  <svg
+    height="20"
+    width="20"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <slot />
+  </svg>
+  <span class="text">{textContent}</span>
+</a>
