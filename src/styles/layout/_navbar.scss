@@ -28,10 +28,8 @@
     justify-content: space-evenly;
     width: 100%;
   }
-}
 
-.navmenu {
-  .navlink {
+  > .navmenu > li > .navlink {
     align-items: center;
     border-radius: 8px;
     display: flex;
@@ -72,16 +70,14 @@
       }
     }
   }
-}
 
-.navlink {
-  > .icon {
+  > .navmenu > li > .navlink > .icon {
     @include respond-to('sm') {
       display: none;
     }
   }
 
-  > .text {
+  > .navmenu > li > .navlink > .text {
     text-transform: capitalize;
   }
 }
