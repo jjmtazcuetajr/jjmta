@@ -11,11 +11,13 @@
   width: 100%;
 
   > .cover {
-    border-top-left-radius: 0.75rem;
-    border-top-right-radius: 0.75rem;
     height: 12.5rem;
     overflow: hidden;
     width: 100%;
+    border-top: {
+      left-radius: 0.75rem;
+      right-radius: 0.75rem;
+    }
   }
 
   > .cover > .image {
@@ -24,7 +26,7 @@
     width: 100%;
     transition: {
       duration: 500ms;
-      property: scale, rotate;
+      property: rotate, scale;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
   }

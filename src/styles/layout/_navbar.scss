@@ -38,7 +38,7 @@
     opacity: 0.6;
     padding: 0.5rem 1rem;
     position: relative;
-    transition: opacity 0.3s ease;
+    transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1);
     font: {
       size: 0.75rem;
       weight: 500;
@@ -52,7 +52,7 @@
       left: 50%;
       position: absolute;
       transform: translateX(-50%);
-      transition: width 0.3s ease;
+      transition: width 300ms cubic-bezier(0.4, 0, 0.2, 1);
       width: 0;
     }
 
