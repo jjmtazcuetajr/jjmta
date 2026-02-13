@@ -8,6 +8,7 @@
 .background {
   inset: 0;
   position: fixed;
+  z-index: -1;
   background: {
     color: oklch(17.76% 0 0deg);
     image: linear-gradient(32deg, oklch(13.44% 0 0deg / 74%) 30px, transparent);
