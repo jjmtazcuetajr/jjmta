@@ -1,18 +1,19 @@
 .footer {
-  padding-block: 4rem 10rem;
-  width: 100%;
-  border-top: 1px solid oklch(37.1% 0 0);
-  background-color: oklch(14.5% 0 0);
+  align-items: center;
+  background-color: oklch(14.5% 0 0deg);
+  border-top: 1px solid oklch(37.1% 0 0deg);
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 2rem;
+  justify-content: space-evenly;
+  padding: 4rem 1.5rem 10rem;
+  width: 100%;
 
   > .stack {
+    color: oklch(87% 0 0deg);
     display: flex;
     flex-direction: column;
-    gap: 0.5rem;
     font-size: 0.875rem;
-    color: oklch(87% 0 0);
+    gap: 0.5rem;
   }
 }
