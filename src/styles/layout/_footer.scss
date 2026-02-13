@@ -1,0 +1,18 @@
+.footer {
+  padding-block: 4rem 10rem;
+  width: 100%;
+  border-top: 1px solid oklch(37.1% 0 0);
+  background-color: oklch(14.5% 0 0);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 2rem;
+
+  > .stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: oklch(87% 0 0);
+  }
+}
