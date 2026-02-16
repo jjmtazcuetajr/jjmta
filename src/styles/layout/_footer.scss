@@ -1,19 +1,43 @@
+@use '../abstracts/mixins' as *;
+
 .footer {
   align-items: center;
   background-color: oklch(14.5% 0 0deg);
   border-top: 1px solid oklch(37.1% 0 0deg);
+  color: oklch(70.8% 0 0deg);
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-direction: column;
+  gap: 1.5rem;
   justify-content: space-evenly;
-  padding: 4rem 1.5rem 10rem;
+  padding: 3rem 1.5rem 7rem;
   width: 100%;
 
+  @include respond-to('sm') {
+    padding: 3rem 1.5rem;
+  }
+
   > .stack {
-    color: oklch(87% 0 0deg);
     display: flex;
     flex-direction: column;
     font-size: 0.875rem;
     gap: 0.5rem;
+
+    @include respond-to('sm') {
+      flex-direction: initial;
+    }
+  }
+
+  > .stack > span {
+    background-color: oklch(26.9% 0 0deg);
+    border-radius: calc(infinity * 1px);
+    padding-inline: 0.5rem;
+    text-align: center;
+  }
+
+  > .copyright {
+    color: oklch(70.8% 0 0deg / 75%);
+    font-size: 0.75rem;
+    letter-spacing: 1px;
+    text-align: center;
   }
 }
