@@ -16,12 +16,6 @@
     width: 1px;
   }
 
-  @include respond-to('sm') {
-    border-radius: unset;
-    bottom: auto;
-    top: 0;
-  }
-
   > .navmenu {
     display: flex;
     gap: 1.5rem;
@@ -54,10 +48,6 @@
       width: 0;
     }
 
-    @include respond-to('sm') {
-      font-size: inherit;
-    }
-
     @include hover-capable {
       &:hover {
         opacity: 0.9;
@@ -69,13 +59,21 @@
     }
   }
 
-  > .navmenu > li > .navlink > .icon {
-    @include respond-to('sm') {
-      display: none;
-    }
-  }
-
   > .navmenu > li > .navlink > .text {
     text-transform: capitalize;
+  }
+
+  @include respond-to('sm') {
+    border-radius: unset;
+    bottom: auto;
+    top: 0;
+
+    & > .navmenu > li > .navlink {
+      font-size: inherit;
+    }
+
+    & > .navmenu > li > .navlink > .icon {
+      display: none;
+    }
   }
 }

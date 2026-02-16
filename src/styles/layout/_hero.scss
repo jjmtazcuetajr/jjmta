@@ -11,17 +11,17 @@
   position: relative;
   text-align: center;
 
-  > .greeting {
-    @include respond-to('md') {
-      font-size: 4rem;
-    }
-  }
-
   > .summary {
     font-weight: 500;
     max-width: 48rem;
+  }
 
-    @include respond-to('md') {
+  @include respond-to('md') {
+    & > .greeting {
+      font-size: 4rem;
+    }
+
+    & > .summary {
       font-size: 1.25rem;
     }
   }
