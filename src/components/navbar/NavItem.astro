@@ -1,17 +1,15 @@
 ---
 interface Props {
   identifier: string
-  iconName: string
 }
 
-const { identifier, iconName } = Astro.props
+const { identifier } = Astro.props
 ---
 
 <li>
   <a class="navlink" href={`#${identifier}`}>
     <span class="icon">
       <svg
-        class={`lucide lucide-${iconName}-icon lucide-${iconName}`}
         height="24"
         width="24"
         fill="none"
