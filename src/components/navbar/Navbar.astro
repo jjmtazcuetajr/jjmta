@@ -26,3 +26,60 @@ import NavItem from './NavItem.astro'
     </ul>
   </nav>
 </header>
+
+<script>
+  const sections = document.querySelectorAll('section[id]')
+  const navLinks = document.querySelectorAll('nav a[href^="#"]')
+  let isScrolling = false
+  let scrollTimeout: ReturnType<typeof setTimeout> | null = null
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      // skip observer updates during programmatic scroll
+      if (isScrolling) return
+
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navLinks.forEach((link) => link.classList.remove('-active'))
+          const activeLink = document.querySelector(`nav a[href="#${entry.target.id}"]`)
+          if (activeLink) activeLink.classList.add('-active')
+        }
+      })
+    },
+    {
+      rootMargin: '-50% 0px',
+    },
+  )
+
+  sections.forEach((section) => observer.observe(section))
+
+  // handle nav link clicks
+  navLinks.forEach((link) => {
+    link.addEventListener('click', () => {
+      const href = link.getAttribute('href')
+      if (!href) return
+
+      const targetId = href.substring(1)
+      const targetSection = document.getElementById(targetId)
+
+      if (targetSection) {
+        // highlight the clicked link
+        navLinks.forEach((l) => l.classList.remove('-active'))
+        link.classList.add('-active')
+
+        // clear any existing timeout
+        if (scrollTimeout) clearTimeout(scrollTimeout)
+
+        // disable observer during smooth scroll
+        isScrolling = true
+
+        // re-enable observer after scroll completes
+        // adjust timeout based on your scroll duration
+        scrollTimeout = setTimeout(() => {
+          isScrolling = false
+          scrollTimeout = null
+        }, 1000)
+      }
+    })
+  })
+</script>
