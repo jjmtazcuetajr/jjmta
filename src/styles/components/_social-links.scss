@@ -6,12 +6,13 @@
     border: 1px solid oklch(26.9% 0 0deg);
     border-radius: 0.5rem;
     color: oklch(100% 0 0deg);
+    outline: none;
     overflow: hidden;
     padding: 0.625rem;
     position: relative;
     transition: {
       duration: 300ms;
-      property: color, scale;
+      property: border-color, box-shadow, color, scale;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -44,6 +45,11 @@
 
     &.-gmail:hover {
       color: oklch(62.57% 0.206 29.08deg);
+    }
+
+    &:focus-visible {
+      border-color: oklch(69.6% 0.17 162.48deg);
+      box-shadow: 0 0 0 3px oklch(50.8% 0.118 165.612deg);
     }
   }
 }
