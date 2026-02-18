@@ -3,10 +3,11 @@
   gap: 1.5rem;
 
   > .btn {
+    border: 1px solid oklch(26.9% 0 0deg);
     border-radius: 0.5rem;
     color: oklch(100% 0 0deg);
     overflow: hidden;
-    padding: 0.5rem;
+    padding: 0.625rem;
     position: relative;
     transition: {
       duration: 300ms;
