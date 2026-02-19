@@ -18,6 +18,16 @@
 
   @include respond-to('md') {
     & > .greeting {
+      font-size: 3rem;
+    }
+
+    & > .summary {
+      font-size: 1.125rem;
+    }
+  }
+
+  @include respond-to('lg') {
+    & > .greeting {
       font-size: 4rem;
     }
 

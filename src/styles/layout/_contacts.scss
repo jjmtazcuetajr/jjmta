@@ -36,8 +36,14 @@
     }
 
     & > .container > .intro > .heading {
-      font-size: 3rem;
+      font-size: 2.25rem;
       text-align: inherit;
+    }
+  }
+
+  @include respond-to('lg') {
+    & > .container > .intro > .heading {
+      font-size: 3rem;
     }
   }
 }
