@@ -37,7 +37,7 @@
       weight: 500;
     }
     transition: {
-      duration: 300ms;
+      duration: 200ms, 300ms;
       property: box-shadow, color;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }

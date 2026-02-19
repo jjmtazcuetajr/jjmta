@@ -11,7 +11,7 @@
     padding: 0.625rem;
     position: relative;
     transition: {
-      duration: 300ms;
+      duration: 200ms, 200ms, 300ms, 300ms;
       property: border-color, box-shadow, color, scale;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
