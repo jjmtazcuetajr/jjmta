@@ -1,41 +1,36 @@
 ---
+import type { Project } from '../../types/project'
 import ProjectAction from './ProjectAction.astro'
 import ProjectTag from './ProjectTag.astro'
+
+const { title, description, tags, liveUrl, repoUrl, imagePath } = Astro.props as Project
 ---
 
 <div class="project-card">
   <div class="cover">
-    <img class="image" alt="Project Cover" src="/src/assets/raye.webp" />
+    <img class="image" alt={title} decoding="async" loading="lazy" src={imagePath} />
   </div>
   <div class="content">
-    <h3 class="title">Project Title</h3>
-    <p class="summary">
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu felis non nunc pharetra
-      tincidunt. Nullam vitae sapien varius, aliquam lectus id, fringilla enim. Suspendisse blandit
-      consectetur sapien quis posuere. Morbi maximus mi eget bibendum aliquam.
-    </p>
+    <h3 class="title">{title}</h3>
+    <p class="summary">{description}</p>
     <ul class="tags">
-      <ProjectTag tagName="web development" />
-      <ProjectTag tagName="design" />
-      <ProjectTag tagName="frontend" />
-      <ProjectTag tagName="backend" />
-      <ProjectTag tagName="fullstack" />
+      {tags.map((tag) => <ProjectTag tagName={tag} />)}
     </ul>
   </div>
   <div class="actions">
-    <ProjectAction
-      ariaLabel="View source code on GitHub"
-      textContent="Code"
-      url="https://github.com"
-    >
+    <ProjectAction ariaLabel="View source code on GitHub" textContent="Code" url={repoUrl}>
       <path d="m18 16 4-4-4-4"></path>
       <path d="m6 8-4 4 4 4"></path>
       <path d="m14.5 4-5 16"></path>
     </ProjectAction>
-    <ProjectAction ariaLabel="View project demo" textContent="Demo" url="https://example.com">
-      <path d="M15 3h6v6"></path>
-      <path d="M10 14 21 3"></path>
-      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
-    </ProjectAction>
+    {
+      liveUrl && (
+        <ProjectAction ariaLabel="View project demo" textContent="Demo" url={liveUrl}>
+          <path d="M15 3h6v6" />
+          <path d="M10 14 21 3" />
+          <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+        </ProjectAction>
+      )
+    }
   </div>
 </div>

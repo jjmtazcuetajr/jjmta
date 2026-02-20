@@ -1,0 +1,10 @@
+[
+  {
+    "title": "YGO ODB",
+    "description": "An online, fan-made Yu-Gi-Oh! deck builder built with Vue.js, TypeScript, and Tailwind CSS. It features a user-friendly interface for creating and editing Yu-Gi-Oh! decks, with a comprehensive card database and real-time deck validation.",
+    "tags": ["Vue.js", "TypeScript", "Tailwind CSS", "YGOPRODeck API", "Drag and drop"],
+    "liveUrl": "https://ygo-odb.netlify.app",
+    "repoUrl": "https://github.com/jjmtazcuetajr/ygo-odb",
+    "imagePath": "/src/assets/ygo-odb.webp"
+  }
+]
