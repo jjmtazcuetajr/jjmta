@@ -15,4 +15,12 @@
     position: -5px -5px;
     size: 3.75rem 3.75rem;
   }
+
+  &::before {
+    background-image: radial-gradient(circle, oklch(14.5% 0 0deg) 0%, transparent 150%);
+    content: '';
+    inset: 0;
+    pointer-events: none;
+    position: fixed;
+  }
 }
