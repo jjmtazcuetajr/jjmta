@@ -57,3 +57,36 @@
     </svg>
   </button>
 </div>
+
+<script>
+  const user = 'azcuetajjmt'
+  const domain = 'gmail'
+  const tld = 'com'
+
+  /**
+   * Constructs the email address by concatenating the user, domain, and top-level domain (TLD).
+   */
+  const getEmail = () => `${user}@${domain}.${tld}`
+
+  const emailCopyButtons = document.querySelectorAll('.btn.-mail')
+
+  /**
+   * Copies the email address to the clipboard.
+   */
+  async function copyEmail() {
+    const email = getEmail()
+
+    try {
+      console.log('Email address copied!')
+      await navigator.clipboard.writeText(email)
+    } catch (error) {
+      console.error('Failed to copy email address: ', error)
+    }
+  }
+
+  emailCopyButtons.forEach((emailCopyButton) => {
+    if (emailCopyButton instanceof HTMLButtonElement) {
+      emailCopyButton.addEventListener('click', copyEmail)
+    }
+  })
+</script>
