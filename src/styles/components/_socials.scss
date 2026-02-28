@@ -33,7 +33,7 @@
     }
 
     &:hover {
-      scale: 100%;
+      scale: 1;
     }
 
     &:hover::after {
@@ -56,20 +56,50 @@
       border-color: oklch(69.6% 0.17 162.48deg);
       box-shadow: 0 0 0 3px oklch(50.8% 0.118 165.612deg);
     }
+  }
 
-    &:focus-visible + .tooltip,
-    &:hover + .tooltip {
-      opacity: 1;
-      translate: -50% 0;
-      visibility: visible;
+  > email-copy-button > .btn {
+    align-items: center;
+    display: flex;
+    height: 2.875rem;
+    justify-content: center;
+    width: 2.875rem;
+  }
+
+  > email-copy-button > .btn > svg {
+    position: absolute;
+    transition: {
+      duration: 250ms;
+      property: opacity, scale;
+      timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
+  }
+
+  > email-copy-button > .btn > .email-icon {
+    opacity: 1;
+    scale: 1;
+  }
+
+  > email-copy-button > .btn > .check-icon {
+    opacity: 0;
+    scale: 0.5;
+  }
+
+  > email-copy-button > .btn.-copied > .email-icon {
+    opacity: 0;
+    scale: 0.5;
+  }
+
+  > email-copy-button > .btn.-copied > .check-icon {
+    opacity: 1;
+    scale: 1;
   }
 
   > email-copy-button > .tooltip {
     background: oklch(26.9% 0 0deg);
     border: 1px solid oklch(50.8% 0.118 165.612deg);
     border-radius: 0.5rem;
-    bottom: calc(100% + 10px);
+    bottom: calc(100% + 0.625rem);
     font-size: 0.75rem;
     left: 50%;
     letter-spacing: 0.04em;
@@ -77,12 +107,12 @@
     padding: 0.375rem 0.625rem;
     pointer-events: none;
     position: absolute;
-    translate: -50% 4px;
+    translate: -50% 0.25rem;
     visibility: hidden;
     white-space: nowrap;
     transition: {
       duration: 300ms;
-      property: opacity, translate;
+      property: opacity, translate, visibility;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -94,6 +124,12 @@
       position: absolute;
       top: 100%;
       translate: -50%;
+    }
+
+    &.-visible {
+      opacity: 1;
+      translate: -50% 0;
+      visibility: visible;
     }
   }
 }

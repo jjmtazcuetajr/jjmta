@@ -1,6 +1,7 @@
 <email-copy-button>
   <button class="btn -mail" type="button" aria-label="Copy email address to clipboard">
     <svg
+      class="email-icon"
       height="24"
       width="24"
       fill="none"
@@ -14,8 +15,22 @@
       <path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"></path>
       <rect height="16" width="20" rx="2" x="2" y="4"></rect>
     </svg>
+    <svg
+      class="check-icon"
+      height="24"
+      width="24"
+      fill="none"
+      stroke="currentColor"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      stroke-width="2"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M20 6 9 17l-5-5"></path>
+    </svg>
   </button>
-  <div class="tooltip" role="tooltip">Copy email</div>
+  <div class="tooltip" role="status" aria-live="polite">Email copied!</div>
 </email-copy-button>
 
 <script>
