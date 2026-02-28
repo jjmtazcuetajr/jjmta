@@ -96,10 +96,11 @@
   }
 
   > email-copy-button > .tooltip {
-    background: oklch(26.9% 0 0deg);
-    border: 1px solid oklch(50.8% 0.118 165.612deg);
+    background-color: oklch(26.9% 0 0deg);
+    border: 1px solid oklch(69.6% 0.17 162.48deg);
     border-radius: 0.5rem;
     bottom: calc(100% + 0.625rem);
+    color: oklch(69.6% 0.17 162.48deg);
     font-size: 0.75rem;
     left: 50%;
     letter-spacing: 0.04em;
@@ -111,14 +112,14 @@
     visibility: hidden;
     white-space: nowrap;
     transition: {
-      duration: 300ms;
+      duration: 200ms;
       property: opacity, translate, visibility;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     &::after {
       border: 5px solid transparent;
-      border-top-color: oklch(50.8% 0.118 165.612deg);
+      border-top-color: oklch(69.6% 0.17 162.48deg);
       content: '';
       left: 50%;
       position: absolute;
@@ -130,6 +131,15 @@
       opacity: 1;
       translate: -50% 0;
       visibility: visible;
+    }
+
+    &.-error {
+      border-color: oklch(70.4% 0.191 22.216deg);
+      color: oklch(70.4% 0.191 22.216deg);
+    }
+
+    &.-error::after {
+      border-top-color: oklch(70.4% 0.191 22.216deg);
     }
   }
 }

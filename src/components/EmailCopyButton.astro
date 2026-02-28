@@ -30,7 +30,7 @@
       <path d="M20 6 9 17l-5-5"></path>
     </svg>
   </button>
-  <div class="tooltip" role="status" aria-live="polite">Email copied!</div>
+  <div class="tooltip" role="status" aria-live="polite"></div>
 </email-copy-button>
 
 <script>
@@ -39,20 +39,26 @@
   const TLD = 'com'
 
   class EmailCopyButton extends HTMLElement {
+    resetTimer: ReturnType<typeof setTimeout> | null
+    button: HTMLButtonElement | null
+    tooltip: HTMLDivElement | null
+
     constructor() {
       super()
 
-      const emailCopyButton = this.querySelector('button')
+      this.resetTimer = null
+      this.button = this.querySelector('button')
+      this.tooltip = this.querySelector('.tooltip')
 
-      if (emailCopyButton instanceof HTMLButtonElement) {
-        emailCopyButton.addEventListener('click', () => this.copyEmail())
+      if (this.button) {
+        this.button.addEventListener('click', () => this.copyEmail())
       }
     }
 
     /**
-     * Constructs the email address by concatenating the user, domain, and top-level domain (TLD).
+     * A getter that constructs the email address by concatenating the {@link USER|user}, {@link DOMAIN|domain}, and {@link TLD|top-level domain (TLD)}.
      */
-    getEmail() {
+    get _email() {
       const emailAddress = `${USER}@${DOMAIN}.${TLD}`
       return emailAddress
     }
@@ -61,13 +67,62 @@
      * Copies the email address to the clipboard.
      */
     async copyEmail() {
-      const email = this.getEmail()
+      const email = this._email
 
       try {
-        console.log('Email address copied!')
         await navigator.clipboard.writeText(email)
-      } catch (error) {
-        console.error('Failed to copy email address: ', error)
+        this.setCopied(true)
+        this.showTooltip('Email copied!')
+        this.resetTimer = setTimeout(() => {
+          this.hideTooltip()
+          this.setCopied(false)
+        }, 2500)
+      } catch {
+        this.showTooltip('Copy failed.', true)
+        this.resetTimer = setTimeout(() => this.hideTooltip(), 3000)
+      }
+    }
+
+    /**
+     * Displays the tooltip.
+     * @param message The message to display in the tooltip.
+     * @param isError A flag to indicate if the message is an error message, which applies different styling.
+     */
+    showTooltip(message: string, isError = false) {
+      if (this.resetTimer) {
+        clearTimeout(this.resetTimer)
+      }
+
+      if (this.tooltip) {
+        const t = this.tooltip
+        t.textContent = message
+        t.classList.toggle('-error', isError)
+        t.classList.remove('-visible')
+        void t.offsetWidth // trigger a reflow to restart CSS transitions
+        t.classList.add('-visible')
+      }
+    }
+
+    /**
+     * Hides the tooltip.
+     */
+    hideTooltip() {
+      if (this.tooltip) {
+        this.tooltip.classList.remove('-visible')
+      }
+    }
+
+    /**
+     * Modifies the button's icon and aria-label based on the copied state.
+     * @param copied A flag to toggle the `-copied` class and updates the aria-label accordingly.
+     */
+    setCopied(copied: boolean) {
+      if (this.button) {
+        this.button.classList.toggle('-copied', copied)
+        this.button.setAttribute(
+          'aria-label',
+          copied ? 'Email copied!' : 'Copy email address to clipboard',
+        )
       }
     }
   }
