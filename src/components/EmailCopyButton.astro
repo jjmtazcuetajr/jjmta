@@ -34,37 +34,40 @@
 </email-copy-button>
 
 <script>
+  const USER = 'azcuetajjmt'
+  const DOMAIN = 'gmail'
+  const TLD = 'com'
+
   class EmailCopyButton extends HTMLElement {
     constructor() {
       super()
 
-      const user = 'azcuetajjmt'
-      const domain = 'gmail'
-      const tld = 'com'
-
-      /**
-       * Constructs the email address by concatenating the user, domain, and top-level domain (TLD).
-       */
-      const getEmail = () => `${user}@${domain}.${tld}`
-
       const emailCopyButton = this.querySelector('button')
 
-      /**
-       * Copies the email address to the clipboard.
-       */
-      async function copyEmail() {
-        const email = getEmail()
-
-        try {
-          console.log('Email address copied!')
-          await navigator.clipboard.writeText(email)
-        } catch (error) {
-          console.error('Failed to copy email address: ', error)
-        }
-      }
-
       if (emailCopyButton instanceof HTMLButtonElement) {
-        emailCopyButton.addEventListener('click', copyEmail)
+        emailCopyButton.addEventListener('click', () => this.copyEmail())
+      }
+    }
+
+    /**
+     * Constructs the email address by concatenating the user, domain, and top-level domain (TLD).
+     */
+    getEmail() {
+      const emailAddress = `${USER}@${DOMAIN}.${TLD}`
+      return emailAddress
+    }
+
+    /**
+     * Copies the email address to the clipboard.
+     */
+    async copyEmail() {
+      const email = this.getEmail()
+
+      try {
+        console.log('Email address copied!')
+        await navigator.clipboard.writeText(email)
+      } catch (error) {
+        console.error('Failed to copy email address: ', error)
       }
     }
   }
