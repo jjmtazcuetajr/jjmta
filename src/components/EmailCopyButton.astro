@@ -20,7 +20,9 @@
 
 <script>
   class EmailCopyButton extends HTMLElement {
-    connectedCallback() {
+    constructor() {
+      super()
+
       const user = 'azcuetajjmt'
       const domain = 'gmail'
       const tld = 'com'
