@@ -1,0 +1,138 @@
+.social-links {
+  display: flex;
+  gap: 1.5rem;
+
+  > email-copy-button {
+    position: relative;
+  }
+
+  > .btn,
+  > email-copy-button > .btn {
+    border: 1px solid oklch(26.9% 0 0deg);
+    border-radius: 0.5rem;
+    color: oklch(87% 0 0deg);
+    outline: none;
+    overflow: hidden;
+    padding: 0.625rem;
+    position: relative;
+    transition: {
+      duration: 200ms, 200ms, 200ms, 200ms, 100ms;
+      property: background-color, border-color, box-shadow, color, scale;
+      timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &:active {
+      scale: 0.9;
+    }
+
+    &:focus-visible {
+      border-color: oklch(69.6% 0.17 162.48deg);
+      box-shadow: 0 0 0 3px oklch(50.8% 0.118 165.612deg);
+    }
+  }
+
+  > .btn:hover {
+    background-color: oklch(26.9% 0 0deg);
+    border-color: oklch(43.9% 0 0deg);
+    color: oklch(100% 0 0deg);
+  }
+
+  > email-copy-button > .btn {
+    align-items: center;
+    display: flex;
+    height: 2.875rem;
+    justify-content: center;
+    width: 2.875rem;
+
+    &.-copied {
+      background-color: oklch(26.9% 0 0deg);
+      border-color: oklch(43.9% 0 0deg);
+      color: oklch(100% 0 0deg);
+    }
+
+    @media (any-hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: oklch(26.9% 0 0deg);
+        border-color: oklch(43.9% 0 0deg);
+        color: oklch(100% 0 0deg);
+      }
+    }
+  }
+
+  > email-copy-button > .btn > svg {
+    position: absolute;
+    transition: {
+      duration: 300ms;
+      property: opacity, scale;
+      timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
+
+  > email-copy-button > .btn > .email-icon {
+    opacity: 1;
+    scale: 1;
+  }
+
+  > email-copy-button > .btn > .check-icon {
+    opacity: 0;
+    scale: 0.5;
+  }
+
+  > email-copy-button > .btn.-copied > .email-icon {
+    opacity: 0;
+    scale: 0.5;
+  }
+
+  > email-copy-button > .btn.-copied > .check-icon {
+    opacity: 1;
+    scale: 1;
+  }
+
+  > email-copy-button > .tooltip {
+    background-color: oklch(26.9% 0 0deg);
+    border: 1px solid oklch(69.6% 0.17 162.48deg);
+    border-radius: 0.5rem;
+    bottom: calc(100% + 0.625rem);
+    color: oklch(69.6% 0.17 162.48deg);
+    font-size: 0.75rem;
+    left: 50%;
+    letter-spacing: 0.04em;
+    opacity: 0;
+    padding: 0.375rem 0.625rem;
+    pointer-events: none;
+    position: absolute;
+    translate: -50% 0.25rem;
+    visibility: hidden;
+    white-space: nowrap;
+    transition: {
+      duration: 200ms;
+      property: opacity, translate, visibility;
+      timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    &::after {
+      border: 5px solid transparent;
+      border-top-color: oklch(69.6% 0.17 162.48deg);
+      content: '';
+      left: 50%;
+      position: absolute;
+      top: 100%;
+      translate: -50%;
+    }
+
+    &.-visible {
+      opacity: 1;
+      translate: -50% 0;
+      visibility: visible;
+    }
+
+    &.-error {
+      border-color: oklch(70.4% 0.191 22.216deg);
+      color: oklch(70.4% 0.191 22.216deg);
+    }
+
+    &.-error::after {
+      border-top-color: oklch(70.4% 0.191 22.216deg);
+    }
+  }
+}
