@@ -22,19 +22,19 @@
     }
 
     &:active {
-      scale: 0.8;
-    }
-
-    &:hover {
-      background-color: oklch(26.9% 0 0deg);
-      border-color: oklch(43.9% 0 0deg);
-      color: oklch(100% 0 0deg);
+      scale: 0.9;
     }
 
     &:focus-visible {
       border-color: oklch(69.6% 0.17 162.48deg);
       box-shadow: 0 0 0 3px oklch(50.8% 0.118 165.612deg);
     }
+  }
+
+  > .btn:hover {
+    background-color: oklch(26.9% 0 0deg);
+    border-color: oklch(43.9% 0 0deg);
+    color: oklch(100% 0 0deg);
   }
 
   > email-copy-button > .btn {
@@ -49,12 +49,20 @@
       border-color: oklch(43.9% 0 0deg);
       color: oklch(100% 0 0deg);
     }
+
+    @media (any-hover: hover) and (pointer: fine) {
+      &:hover {
+        background-color: oklch(26.9% 0 0deg);
+        border-color: oklch(43.9% 0 0deg);
+        color: oklch(100% 0 0deg);
+      }
+    }
   }
 
   > email-copy-button > .btn > svg {
     position: absolute;
     transition: {
-      duration: 250ms;
+      duration: 300ms;
       property: opacity, scale;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
