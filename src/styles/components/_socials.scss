@@ -43,6 +43,12 @@
     height: 2.875rem;
     justify-content: center;
     width: 2.875rem;
+
+    &.-copied {
+      background-color: oklch(26.9% 0 0deg);
+      border-color: oklch(43.9% 0 0deg);
+      color: oklch(100% 0 0deg);
+    }
   }
 
   > email-copy-button > .btn > svg {
