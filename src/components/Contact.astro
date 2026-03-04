@@ -66,3 +66,53 @@
     </form>
   </div>
 </section>
+
+<script>
+  const form = document.querySelector('.contact-form')
+
+  if (form && form instanceof HTMLFormElement) {
+    const formTextFields = form.querySelectorAll('input, textarea')
+
+    formTextFields.forEach((textField) => {
+      if (textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement) {
+        textField.addEventListener('blur', () => normalizeInput(textField))
+      }
+    })
+  }
+
+  /**
+   * Normalizes the value of an input or textarea element.
+   * @param element A text field element (input or textarea) to normalize.
+   */
+  function normalizeInput(element: HTMLInputElement | HTMLTextAreaElement) {
+    const value = element.value
+    const isTextarea = element instanceof HTMLTextAreaElement
+
+    // if only whitespace characters (spaces and/or newlines), clear the text field
+    if (/^\s*$/.test(value)) {
+      element.value = ''
+      return
+    }
+
+    let normalized = value
+
+    if (isTextarea) {
+      // normalize each line: collapse multiple spaces into one
+      normalized = normalized
+        .split('\n')
+        .map((line) => line.replace(/ +/g, ' '))
+        .join('\n')
+
+      // collapse multiple consecutive newlines into one
+      normalized = normalized.replace(/\n{2,}/g, '\n')
+    } else {
+      // for text inputs: collapse multiple spaces into one
+      normalized = normalized.replace(/ +/g, ' ')
+    }
+
+    // trim leading/trailing spaces and newlines
+    normalized = normalized.trim()
+
+    element.value = normalized
+  }
+</script>
