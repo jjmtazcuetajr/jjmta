@@ -91,11 +91,23 @@
       border-color: oklch(69.6% 0.17 162.48deg);
       box-shadow: 0 0 0 3px oklch(50.8% 0.118 165.612deg);
     }
+
+    &.-invalid {
+      border-color: oklch(63.7% 0.237 25.331deg);
+      box-shadow: 0 0 0 3px oklch(50.5% 0.213 27.518deg);
+    }
   }
 
   > .formgroup > .messagebox {
     min-height: 7.5rem;
     resize: vertical;
+  }
+
+  > .formgroup > .errortext {
+    color: oklch(70.4% 0.191 22.216deg);
+    display: none;
+    font-size: 0.875rem;
+    text-align: start;
   }
 
   > .sendbutton {

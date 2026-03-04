@@ -7,7 +7,7 @@
         your visions. Let's create something amazing together.
       </p>
     </div>
-    <form class="contact-form">
+    <form class="contact-form" novalidate>
       <div class="formgroup">
         <label class="label" for="name">Name</label>
         <input
@@ -18,7 +18,9 @@
           placeholder="Your name"
           required
           type="text"
+          aria-describedby="name-feedback"
         />
+        <span class="errortext" id="name-feedback" aria-live="polite"></span>
       </div>
       <div class="formgroup">
         <label class="label" for="email">Email</label>
@@ -30,7 +32,9 @@
           placeholder="test@example.com"
           required
           type="email"
+          aria-describedby="email-feedback"
         />
+        <span class="errortext" id="email-feedback" aria-live="polite"></span>
       </div>
       <div class="formgroup">
         <label class="label" for="message">Message</label>
@@ -40,7 +44,9 @@
           name="message"
           placeholder="Tell me about your project or idea..."
           required
-          rows="5"></textarea>
+          rows="5"
+          aria-describedby="message-feedback"></textarea>
+        <span class="errortext" id="message-feedback" aria-live="polite"></span>
       </div>
       <button class="sendbutton" type="submit">
         Send Message
@@ -76,7 +82,20 @@
     formTextFields.forEach((textField) => {
       if (textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement) {
         textField.addEventListener('blur', () => normalizeInput(textField))
+        textField.addEventListener('input', () => {
+          if (textField.validity.valid) clearError(textField)
+        })
       }
+    })
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+
+      formTextFields.forEach((textField) => {
+        if (textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement) {
+          if (!textField.validity.valid) showError(textField)
+        }
+      })
     })
   }
 
@@ -114,5 +133,43 @@
     normalized = normalized.trim()
 
     element.value = normalized
+  }
+
+  /**
+   * Returns an error message for a given input element.
+   * @param input A text field element (input or textarea) in the contact form.
+   * @returns A string containing the appropriate error message based on the input's validity state.
+   */
+  function getErrorMessage(input: HTMLInputElement | HTMLTextAreaElement): string {
+    if (input.validity.valueMissing || input.validity.typeMismatch) return input.validationMessage
+    return ''
+  }
+
+  /**
+   * Shows an error feedback for a given input element.
+   * @param input A text field element (input or textarea) in the contact form.
+   */
+  function showError(input: HTMLInputElement | HTMLTextAreaElement) {
+    const span = input.nextElementSibling
+    if (span && span instanceof HTMLSpanElement) {
+      span.textContent = getErrorMessage(input)
+      span.style.display = 'inline'
+      input.classList.add('-invalid')
+      input.setAttribute('aria-invalid', 'true')
+    }
+  }
+
+  /**
+   * Removes any error feedback for a given input element.
+   * @param input A text field element (input or textarea) in the contact form.
+   */
+  function clearError(input: HTMLInputElement | HTMLTextAreaElement) {
+    const span = input.nextElementSibling
+    if (span && span instanceof HTMLSpanElement) {
+      span.textContent = ''
+      span.removeAttribute('style')
+      input.classList.remove('-invalid')
+      input.removeAttribute('aria-invalid')
+    }
   }
 </script>
