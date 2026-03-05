@@ -126,8 +126,13 @@
   }
 
   /**
-   * Normalizes the value of an input or textarea element.
-   * @param element A text field element (input or textarea) to normalize.
+   * Normalizes the value of a text input or textarea element by:
+   * - Clearing the field if it only contains whitespace.
+   * - Collapsing multiple consecutive spaces into single spaces.
+   * - For textareas only: collapsing multiple consecutive newlines into single newlines.
+   * - Trimming leading and trailing whitespace.
+   *
+   * @param element - The text input or textarea element to normalize.
    */
   function normalizeInput(element: HTMLInputElement | HTMLTextAreaElement) {
     const value = element.value
@@ -162,9 +167,13 @@
   }
 
   /**
-   * Returns an error message for a given input element.
-   * @param input A text field element (input or textarea) in the contact form.
-   * @returns A string containing the appropriate error message based on the input's validity state.
+   * Retrieves the validation error message for a given input element.
+   *
+   * Checks if the input has a missing value or invalid type and returns the browser's
+   * built-in validation message. Returns an empty string if the input is valid.
+   *
+   * @param input - The text input or textarea element to check.
+   * @returns The validation message if the input is invalid, or an empty string if valid.
    */
   function getErrorMessage(input: HTMLInputElement | HTMLTextAreaElement): string {
     if (input.validity.valueMissing || input.validity.typeMismatch) return input.validationMessage
@@ -172,8 +181,14 @@
   }
 
   /**
-   * Shows an error feedback for a given input element.
-   * @param input A text field element (input or textarea) in the contact form.
+   * Displays validation error feedback for a given input element.
+   *
+   * This function:
+   * - Displays the error message in the input's sibling span element.
+   * - Adds the `-invalid` CSS class to visually indicate an error state.
+   * - Sets `aria-invalid="true"` for accessibility.
+   *
+   * @param input - The text input or textarea element to show an error for.
    */
   function showError(input: HTMLInputElement | HTMLTextAreaElement) {
     const span = input.nextElementSibling
@@ -186,8 +201,14 @@
   }
 
   /**
-   * Removes any error feedback for a given input element.
-   * @param input A text field element (input or textarea) in the contact form.
+   * Clears validation error feedback for a given input element.
+   *
+   * This function:
+   * - Clears the error message displayed in the input's sibling span element.
+   * - Removes the `-invalid` CSS class to restore the valid state appearance.
+   * - Removes the `aria-invalid` attribute for accessibility.
+   *
+   * @param input - The text input or textarea element to clear the error for.
    */
   function clearError(input: HTMLInputElement | HTMLTextAreaElement) {
     const span = input.nextElementSibling
