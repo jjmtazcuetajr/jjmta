@@ -64,7 +64,10 @@
     }
 
     /**
-     * Copies the email address to the clipboard.
+     * Copies the email address to the clipboard and provides visual feedback.
+     *
+     * On success, displays a success message, toggles the copied state, and schedules cleanup.
+     * On failure, displays an error message. Both feedback messages auto-hide after a set duration.
      */
     async copyEmail() {
       const email = this._email
@@ -84,9 +87,13 @@
     }
 
     /**
-     * Displays the tooltip.
-     * @param message The message to display in the tooltip.
-     * @param isError A flag to indicate if the message is an error message, which applies different styling.
+     * Displays a tooltip message with optional error styling.
+     *
+     * Clears any pending reset timer, applies error styling if needed, and triggers CSS transitions
+     * by removing and re-adding the visible class.
+     *
+     * @param message - The text to display in the tooltip.
+     * @param isError - Whether to apply error styling (default: false).
      */
     showTooltip(message: string, isError = false) {
       if (this.resetTimer) {
@@ -104,7 +111,7 @@
     }
 
     /**
-     * Hides the tooltip.
+     * Hides the tooltip by removing its visible state.
      */
     hideTooltip() {
       if (this.tooltip) {
@@ -113,8 +120,12 @@
     }
 
     /**
-     * Modifies the button's icon and aria-label based on the copied state.
-     * @param copied A flag to toggle the `-copied` class and updates the aria-label accordingly.
+     * Updates the button's visual and accessibility state based on the copied status.
+     *
+     * Toggles the `-copied` CSS class for visual styling and updates the aria-label
+     * to reflect whether the email has been successfully copied.
+     *
+     * @param copied - True for copied state, false for default state.
      */
     setCopied(copied: boolean) {
       if (this.button) {
