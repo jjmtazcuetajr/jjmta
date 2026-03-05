@@ -77,8 +77,8 @@
       width: 1px;
     }
     transition: {
-      duration: 200ms;
-      property: border-color, box-shadow;
+      duration: 200ms, 200ms, 100ms;
+      property: border-color, box-shadow, opacity;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -90,6 +90,11 @@
     &:focus {
       border-color: oklch(69.6% 0.17 162.48deg);
       box-shadow: 0 0 0 3px oklch(50.8% 0.118 165.612deg);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
     }
 
     &.-invalid {
@@ -126,8 +131,8 @@
     outline: none;
     padding: 1rem 2rem;
     transition: {
-      duration: 200ms, 300ms, 300ms;
-      property: box-shadow, filter, translate;
+      duration: 200ms, 300ms, 100ms, 300ms;
+      property: box-shadow, filter, opacity, translate;
       timing-function: cubic-bezier(0.4, 0, 0.2, 1);
     }
 
@@ -150,6 +155,17 @@
 
     &:focus-visible > .icon {
       translate: 4px;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      filter: unset;
+      opacity: 0.5;
+      translate: unset;
+    }
+
+    &:disabled > .icon {
+      translate: unset;
     }
   }
 
