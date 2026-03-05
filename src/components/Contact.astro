@@ -96,6 +96,17 @@
           if (!textField.validity.valid) showError(textField)
         }
       })
+
+      // stop form submission here if any text field is invalid
+      const isValid = Array.from(formTextFields).every((textField) => {
+        if (textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement) {
+          return textField.validity.valid
+        }
+        return true
+      })
+      if (!isValid) return
+
+      console.log('submit logic here')
     })
   }
 
