@@ -85,6 +85,14 @@
         textField.addEventListener('input', () => {
           if (textField.validity.valid) clearError(textField)
         })
+        textField.addEventListener('keydown', (e) => {
+          if (
+            e instanceof KeyboardEvent &&
+            e.key === 'Enter' &&
+            textField instanceof HTMLInputElement
+          )
+            normalizeInput(textField)
+        })
       }
     })
 
