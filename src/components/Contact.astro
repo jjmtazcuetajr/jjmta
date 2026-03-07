@@ -99,7 +99,14 @@
       }
     })
 
-    form.addEventListener('submit', async (e) => {
+    form.addEventListener('submit', handleSubmit)
+
+    /**
+     * Handles the submission of the contact form.
+     * Validates all form fields, disables the form during submission, simulates an API call, and displays submission feedback.
+     * @param e - The submit event.
+     */
+    async function handleSubmit(e: SubmitEvent) {
       e.preventDefault()
 
       formTextFields.forEach((textField) => {
@@ -123,7 +130,7 @@
       await new Promise((r) => setTimeout(r, 2000)) // simulate API call
 
       showFormSubmissionFeedback()
-    })
+    }
   }
 
   /**
