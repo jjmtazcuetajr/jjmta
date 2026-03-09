@@ -1,3 +1,7 @@
+---
+import { PUBLIC_FORMSPREE_ENDPOINT } from 'astro:env/client'
+---
+
 <section class="contact-section" id="contact">
   <div class="container">
     <div class="intro">
@@ -8,7 +12,7 @@
       </p>
     </div>
     <div id="form-container" aria-live="polite">
-      <form class="contact-form" novalidate>
+      <form class="contact-form" action={PUBLIC_FORMSPREE_ENDPOINT} method="POST" novalidate>
         <div class="formgroup">
           <label class="label" for="name">Name</label>
           <input
@@ -76,6 +80,8 @@
 </section>
 
 <script>
+  import type { FormspreeError } from '../types/form-error'
+
   const form = document.querySelector('.contact-form')
 
   if (form && form instanceof HTMLFormElement) {
@@ -109,6 +115,7 @@
     async function handleSubmit(e: SubmitEvent) {
       e.preventDefault()
 
+      // show input errors upon form submission, if there are any
       formTextFields.forEach((textField) => {
         if (textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement) {
           if (!textField.validity.valid) showError(textField)
@@ -124,12 +131,37 @@
       })
       if (!isValid) return
 
+      // construct form data
+      if (!(e.target instanceof HTMLFormElement)) return
+      const formData = new FormData(e.target)
+
       disableSubmitButton(submitButton)
       disableTextFields(formTextFields)
 
-      await new Promise((r) => setTimeout(r, 2000)) // simulate API call
+      try {
+        const response = await fetch(e.target.action, {
+          method: e.target.method,
+          body: formData,
+          headers: {
+            Accept: 'application/json',
+          },
+        })
 
-      showFormSubmissionFeedback()
+        if (response.ok) {
+          showFormSubmissionFeedback()
+        } else {
+          const jsonError: FormspreeError = await response.json()
+          if (Object.hasOwn(jsonError, 'errors')) {
+            console.error(
+              `${jsonError.error}:\n\n - ${jsonError.errors.map((error) => 'Field: ' + error.field + ', Message: ' + error.message).join('\n - ')}`,
+            )
+          } else console.error('There was a problem submitting your form.')
+
+          showFormSubmissionFeedback(true)
+        }
+      } catch {
+        showFormSubmissionFeedback(true)
+      }
     }
   }
 
