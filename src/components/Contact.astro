@@ -1,5 +1,6 @@
 ---
 import { PUBLIC_FORMSPREE_ENDPOINT } from 'astro:env/client'
+import TurnstileWidget from './TurnstileWidget.astro'
 ---
 
 <section class="contact-section" id="contact">
@@ -53,6 +54,7 @@ import { PUBLIC_FORMSPREE_ENDPOINT } from 'astro:env/client'
             aria-describedby="message-feedback"></textarea>
           <span class="errortext" id="message-feedback" aria-live="polite"></span>
         </div>
+        <TurnstileWidget />
         <button class="sendbutton" type="submit">
           Send Message
           <svg

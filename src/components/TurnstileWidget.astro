@@ -1,0 +1,7 @@
+---
+import { PUBLIC_TURNSTILE_SITE_KEY } from 'astro:env/client'
+---
+
+<div class="cf-turnstile" data-sitekey={PUBLIC_TURNSTILE_SITE_KEY}></div>
+
+<script async defer is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
