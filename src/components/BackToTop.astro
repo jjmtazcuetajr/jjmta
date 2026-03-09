@@ -1,0 +1,46 @@
+<button class="back-to-top" title="Back to top" type="button" aria-label="Back to top">
+  <svg
+    height="24"
+    width="24"
+    fill="none"
+    stroke="currentColor"
+    stroke-linecap="round"
+    stroke-linejoin="round"
+    stroke-width="2"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path d="m17 11-5-5-5 5"></path><path d="m17 18-5-5-5 5"></path>
+  </svg>
+</button>
+
+<script>
+  const backToTopButton = document.querySelector('.back-to-top') as HTMLButtonElement
+
+  /**
+   * Toggles the visibility of the **back-to-top** button based on the current scroll position.
+   * Adds the `-visible` class if the page is scrolled more than 500 pixels from the top, otherwise removes it.
+   */
+  function toggleBackToTopButton() {
+    if (window.scrollY > 500) backToTopButton.classList.add('-visible')
+    else backToTopButton.classList.remove('-visible')
+  }
+
+  /**
+   * Handles the scroll event by requesting an animation frame to update the button visibility.
+   * This optimizes performance by debouncing the visibility check using `requestAnimationFrame`.
+   */
+  function handleScroll() {
+    requestAnimationFrame(toggleBackToTopButton)
+  }
+
+  /**
+   * Scrolls the page smoothly to the top when the **back-to-top** button is clicked.
+   */
+  function scrollToTop() {
+    window.scrollTo({ top: 0 })
+  }
+
+  window.addEventListener('scroll', handleScroll)
+  backToTopButton.addEventListener('click', scrollToTop)
+</script>
