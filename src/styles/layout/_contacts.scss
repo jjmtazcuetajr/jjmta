@@ -146,11 +146,11 @@
 
     &:hover {
       filter: brightness(1.2);
-      translate: 0 -2px;
+      translate: 0 -0.125rem;
     }
 
     &:hover > .icon {
-      translate: 4px;
+      translate: 0.25rem;
     }
 
     &:active {
@@ -162,7 +162,7 @@
     }
 
     &:focus-visible > .icon {
-      translate: 4px;
+      translate: 0.25rem;
     }
 
     &:disabled {
