@@ -9,4 +9,11 @@ export default defineConfig({
       PUBLIC_TURNSTILE_SITE_KEY: envField.string({ context: 'client', access: 'public' }),
     },
   },
+  vite: {
+    server: {
+      watch: {
+        usePolling: true, // needed if HMR fails inside Docker on Windows
+      },
+    },
+  },
 })
