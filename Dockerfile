@@ -7,8 +7,9 @@ WORKDIR /app
 # copy package files so that Docker can cache the node_modules layer
 COPY package*.json ./
 
-# install dependencies from lockfile
-RUN npm ci
+# use a cache mount for npm, then install dependencies from lockfile
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 
 # copy project files from the source (local machine) to the destination (inside the docker container)
 COPY . .
