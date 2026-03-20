@@ -1,0 +1,39 @@
+# dependency and build directories
+
+node_modules
+.astro
+dist
+
+# editor and IDE configs
+
+.vscode
+.idea
+.editorconfig
+
+# logs
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# macOS-specific files
+
+.DS_Store
+
+# version control
+
+.git
+.github
+.gitignore
+
+# secrets and documentation
+
+.env\*
+LICENSE
+README.md
+
+# docker files
+
+Dockerfile
+.dockerignore
