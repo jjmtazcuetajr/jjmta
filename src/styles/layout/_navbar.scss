@@ -53,6 +53,10 @@
     &:focus-visible {
       box-shadow: 0 0 0 3px oklch(50.8% 0.118 165.612deg);
     }
+
+    &:hover {
+      color: oklch(69.6% 0.17 162.48deg);
+    }
   }
 
   > .navmenu > li > .navlink > .text {
