@@ -1,14 +1,20 @@
 ---
+import type { ImageMetadata } from 'astro'
+import { Image } from 'astro:assets'
 import type { Project } from '../../types/project'
 import ProjectAction from './ProjectAction.astro'
 import ProjectTag from './ProjectTag.astro'
 
-const { title, description, tags, liveUrl, repoUrl, imagePath } = Astro.props as Project
+interface Props extends Project {
+  imageData: ImageMetadata
+}
+
+const { title, description, tags, liveUrl, repoUrl, imageData } = Astro.props
 ---
 
 <div class="project-card">
   <div class="cover">
-    <img class="image" alt={title} decoding="async" loading="lazy" src={imagePath} />
+    <Image class="image" alt={title} layout="constrained" src={imageData} />
   </div>
   <div class="content">
     <h3 class="title">{title}</h3>
