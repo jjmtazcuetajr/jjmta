@@ -2,7 +2,7 @@
  * Normalizes the value of a text input or textarea element by:
  * - Clearing the field if it only contains whitespace.
  * - Collapsing multiple consecutive spaces into single spaces.
- * - For textareas only: collapsing multiple consecutive newlines into single newlines.
+ * - For textareas only: collapsing multiple consecutive newlines into double newlines.
  * - Trimming leading and trailing whitespace.
  *
  * @param element - The text input or textarea element to normalize.
@@ -11,30 +11,21 @@ export function normalizeInput(element: HTMLInputElement | HTMLTextAreaElement) 
   const value = element.value
   const isTextarea = element instanceof HTMLTextAreaElement
 
-  // if only whitespace characters (spaces and/or newlines), clear the text field
-  if (/^\s*$/.test(value)) {
-    element.value = ''
-    return
-  }
-
   let normalized = value
-
-  if (isTextarea) {
-    // normalize each line: collapse multiple spaces into one
-    normalized = normalized
-      .split('\n')
-      .map((line) => line.replace(/ +/g, ' '))
-      .join('\n')
-
-    // collapse multiple consecutive newlines into one
-    normalized = normalized.replace(/\n{2,}/g, '\n')
-  } else {
-    // for text inputs: collapse multiple spaces into one
-    normalized = normalized.replace(/ +/g, ' ')
-  }
 
   // trim leading/trailing spaces and newlines
   normalized = normalized.trim()
+
+  if (isTextarea) {
+    normalized = normalized
+      .split('\n')
+      .map((line) => (line.trim() === '' ? '' : line)) // blank out whitespace-only lines
+      .join('\n')
+      .replace(/\n{3,}/g, '\n\n') // collapse 3+ newlines to max 2 to add a minimal and reasonable visual breathing room
+  } else {
+    // for text inputs: collapse multiple spaces into one
+    normalized = normalized.replace(/\s+/g, ' ')
+  }
 
   element.value = normalized
 }
