@@ -1,33 +1,33 @@
 import { describe, it, expect } from 'vitest'
 import { getErrorMessage, normalizeInput } from './form-utils'
 
+/**
+ * Create a required HTMLInputElement for tests.
+ * @param type - The input type (e.g. text, email).
+ * @param value - The input value to set.
+ * @returns A configured required input element.
+ */
+function makeInput(type: 'text' | 'email', value: string): HTMLInputElement {
+  const input = document.createElement('input')
+  input.required = true
+  input.type = type
+  input.value = value
+  return input
+}
+
+/**
+ * Create a required HTMLTextAreaElement for tests.
+ * @param value - The textarea value to set.
+ * @returns A configured required textarea element.
+ */
+function makeTextArea(value: string): HTMLTextAreaElement {
+  const textarea = document.createElement('textarea')
+  textarea.required = true
+  textarea.value = value
+  return textarea
+}
+
 describe('getErrorMessage', () => {
-  /**
-   * Create a required HTMLInputElement for tests.
-   * @param type - The input type (e.g. text, email).
-   * @param value - The input value to set.
-   * @returns A configured required input element.
-   */
-  function makeInput(type: 'text' | 'email', value: string): HTMLInputElement {
-    const input = document.createElement('input')
-    input.required = true
-    input.type = type
-    input.value = value
-    return input
-  }
-
-  /**
-   * Create a required HTMLTextAreaElement for tests.
-   * @param value - The textarea value to set.
-   * @returns A configured required textarea element.
-   */
-  function makeTextArea(value: string): HTMLTextAreaElement {
-    const textarea = document.createElement('textarea')
-    textarea.required = true
-    textarea.value = value
-    return textarea
-  }
-
   it('returns a validation message when a required input is empty (valueMissing)', () => {
     const input = makeInput('text', '')
     // const input = makeInput('email', '')
@@ -65,23 +65,26 @@ describe('getErrorMessage', () => {
 
 describe('normalizeInput', () => {
   it('clears input when its value is only whitespace', () => {
-    const input = document.createElement('input')
-    input.value = '   '
+    const input = makeInput('text', '   ')
     normalizeInput(input)
     expect(input.value).toBe('')
   })
 
-  it('trims leading and trailing whitespaces and collapses multiple consecutive spaces in input', () => {
-    const input = document.createElement('input')
-    input.value = '  hello   world    '
+  it('trims leading and trailing whitespaces and collapses multiple consecutive spaces into a single space in input', () => {
+    const input = makeInput('text', '  hello   world    ')
     normalizeInput(input)
     expect(input.value).toBe('hello world')
   })
 
-  it('collapses multiple newlines in textarea', () => {
-    const textarea = document.createElement('textarea')
-    textarea.value = 'hello\n\n\nworld'
+  it('clears textarea when its value is only spaces and/or newlines', () => {
+    const textarea = makeTextArea('  \n\n \n  \n\n\n   \n    ')
     normalizeInput(textarea)
-    expect(textarea.value).toBe('hello\nworld')
+    expect(textarea.value).toBe('')
+  })
+
+  it('trims leading and trailing whitespaces and collapses multiple consecutive newlines into double newlines in textarea', () => {
+    const textarea = makeTextArea(' \n hello  \n \n \n\n\n \n world \n\n  ')
+    normalizeInput(textarea)
+    expect(textarea.value).toBe('hello  \n\n world')
   })
 })
