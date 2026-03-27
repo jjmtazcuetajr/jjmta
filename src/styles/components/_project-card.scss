@@ -78,6 +78,10 @@
     border-radius: 0.5rem;
   }
 
+  > .content > .tags::-webkit-scrollbar-thumb:hover {
+    background-color: oklch(50.8% 0.118 165.612deg);
+  }
+
   > .content > .tags::-webkit-scrollbar-track {
     background-color: oklch(20.5% 0 0deg);
   }
