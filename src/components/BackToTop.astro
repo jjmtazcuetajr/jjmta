@@ -43,4 +43,7 @@
 
   window.addEventListener('scroll', handleScroll)
   backToTopButton.addEventListener('click', scrollToTop)
+
+  // run once on init to handle page reloads at a scrolled position
+  toggleBackToTopButton()
 </script>
