@@ -10,6 +10,9 @@ jobs:
   test:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+    env:
+      PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.PUBLIC_FORMSPREE_ENDPOINT }}
+      PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -51,9 +54,6 @@ jobs:
 
       - name: Run Playwright tests
         run: npx playwright test --project=chromium
-        env:
-          PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.PUBLIC_FORMSPREE_ENDPOINT }}
-          PUBLIC_TURNSTILE_SITE_KEY: ${{ secrets.PUBLIC_TURNSTILE_SITE_KEY }}
 
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
