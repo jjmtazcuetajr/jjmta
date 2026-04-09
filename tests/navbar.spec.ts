@@ -16,7 +16,7 @@ test.describe('Navbar Navigation', () => {
   })
 
   test('initially highlights home nav item', async ({ page }) => {
-    const homeLink = page.locator('nav a[href="#home"]')
+    const homeLink = page.getByRole('link', { name: 'home' })
     await expect(homeLink).toHaveClass(/-active/)
   })
 
@@ -25,7 +25,7 @@ test.describe('Navbar Navigation', () => {
     await projectsSection.scrollIntoViewIfNeeded()
     // wait for intersection observer to trigger
     await page.waitForTimeout(100) // allow time for observer
-    const projectsLink = page.locator('nav a[href="#projects"]')
+    const projectsLink = page.getByRole('link', { name: 'projects' })
     await expect(projectsLink).toHaveClass(/-active/)
   })
 
@@ -33,12 +33,12 @@ test.describe('Navbar Navigation', () => {
     const contactSection = page.locator('section#contact')
     await contactSection.scrollIntoViewIfNeeded()
     await page.waitForTimeout(100)
-    const contactLink = page.locator('nav a[href="#contact"]')
+    const contactLink = page.getByRole('link', { name: 'contact' })
     await expect(contactLink).toHaveClass(/-active/)
   })
 
   test('clicking nav link highlights it immediately', async ({ page }) => {
-    const projectsLink = page.locator('nav a[href="#projects"]')
+    const projectsLink = page.getByRole('link', { name: 'projects' })
     await projectsLink.click()
     await expect(projectsLink).toHaveClass(/-active/)
   })
@@ -46,9 +46,9 @@ test.describe('Navbar Navigation', () => {
   test('clicking third nav item (contact) highlights it immediately without highlighting the second (projects)', async ({
     page,
   }) => {
-    const homeLink = page.locator('nav a[href="#home"]')
-    const projectsLink = page.locator('nav a[href="#projects"]')
-    const contactLink = page.locator('nav a[href="#contact"]')
+    const homeLink = page.getByRole('link', { name: 'home' })
+    const projectsLink = page.getByRole('link', { name: 'projects' })
+    const contactLink = page.getByRole('link', { name: 'contact' })
 
     // click the third nav item
     await contactLink.click()
@@ -66,7 +66,7 @@ test.describe('Navbar Navigation', () => {
   test('second nav item (projects) is never transiently highlighted during scroll to third section after clicking the third nav item (contact)', async ({
     page,
   }) => {
-    const contactLink = page.locator('nav a[href="#contact"]')
+    const contactLink = page.getByRole('link', { name: 'contact' })
 
     // track whether the second link (projects) ever becomes active
     let secondLinkBecameActive = false
@@ -108,14 +108,14 @@ test.describe('Navbar Navigation', () => {
     const contactSection = page.locator('section#contact')
     await contactSection.scrollIntoViewIfNeeded()
     await page.waitForTimeout(100)
-    const contactLink = page.locator('nav a[href="#contact"]')
+    const contactLink = page.getByRole('link', { name: 'contact' })
     await expect(contactLink).toHaveClass(/-active/)
 
     // Scroll back to projects
     const projectsSection = page.locator('section#projects')
     await projectsSection.scrollIntoViewIfNeeded()
     await page.waitForTimeout(100)
-    const projectsLink = page.locator('nav a[href="#projects"]')
+    const projectsLink = page.getByRole('link', { name: 'projects' })
     await expect(projectsLink).toHaveClass(/-active/)
   })
 
@@ -127,21 +127,21 @@ test.describe('Navbar Navigation', () => {
 
     await contactSection.scrollIntoViewIfNeeded()
     await page.waitForTimeout(50)
-    await expect(page.locator('nav a[href="#contact"]')).toHaveClass(/-active/)
+    await expect(page.getByRole('link', { name: 'contact' })).toHaveClass(/-active/)
 
     await projectsSection.scrollIntoViewIfNeeded()
     await page.waitForTimeout(50)
-    await expect(page.locator('nav a[href="#projects"]')).toHaveClass(/-active/)
+    await expect(page.getByRole('link', { name: 'projects' })).toHaveClass(/-active/)
 
     await homeSection.scrollIntoViewIfNeeded()
     await page.waitForTimeout(50)
-    await expect(page.locator('nav a[href="#home"]')).toHaveClass(/-active/)
+    await expect(page.getByRole('link', { name: 'home' })).toHaveClass(/-active/)
   })
 
   test('nav links have correct href attributes', async ({ page }) => {
-    const homeLink = page.locator('nav a[href="#home"]')
-    const projectsLink = page.locator('nav a[href="#projects"]')
-    const contactLink = page.locator('nav a[href="#contact"]')
+    const homeLink = page.getByRole('link', { name: 'home' })
+    const projectsLink = page.getByRole('link', { name: 'projects' })
+    const contactLink = page.getByRole('link', { name: 'contact' })
 
     await expect(homeLink).toHaveAttribute('href', '#home')
     await expect(projectsLink).toHaveAttribute('href', '#projects')
