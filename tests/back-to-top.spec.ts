@@ -13,7 +13,7 @@ test.describe('BackToTop Button Component', () => {
   test('should show the back-to-top button when scrolled beyond 500px', async ({ page }) => {
     const backToTopBtn = page.getByRole('button', { name: 'Back to top' })
     await expect(backToTopBtn).toBeHidden()
-    await page.mouse.wheel(0, 700)
+    await page.evaluate(() => window.scrollBy(0, 700))
     await expect(backToTopBtn).toBeVisible()
   })
 
@@ -22,11 +22,11 @@ test.describe('BackToTop Button Component', () => {
     await expect(backToTopBtn).toBeHidden()
 
     // first scroll down
-    await page.mouse.wheel(0, 700)
+    await page.evaluate(() => window.scrollBy(0, 700))
     await expect(backToTopBtn).toBeVisible()
 
     // then scroll back to top
-    await page.mouse.wheel(0, -700)
+    await page.evaluate(() => window.scrollBy(0, -700))
     await expect(backToTopBtn).toBeHidden()
   })
 
@@ -35,7 +35,7 @@ test.describe('BackToTop Button Component', () => {
     await expect(backToTopBtn).toBeHidden()
 
     // scroll down first
-    await page.mouse.wheel(0, 700)
+    await page.evaluate(() => window.scrollBy(0, 700))
     await expect(backToTopBtn).toBeVisible()
 
     // click the button
@@ -51,7 +51,7 @@ test.describe('BackToTop Button Component', () => {
 
   test('should have correct accessibility attributes', async ({ page }) => {
     const backToTopBtn = page.getByRole('button', { name: 'Back to top' })
-    await page.mouse.wheel(0, 700)
+    await page.evaluate(() => window.scrollBy(0, 700))
     await expect(backToTopBtn).toBeVisible()
     await expect(backToTopBtn).toHaveAttribute('title', 'Back to top')
     await expect(backToTopBtn).toHaveAttribute('aria-label', 'Back to top')
