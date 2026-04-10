@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test'
 
 test.describe('BackToTop Button Component', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4321')
+    await page.goto('/')
   })
 
   test('should hide the back-to-top button initially', async ({ page }) => {

@@ -8,7 +8,7 @@ declare global {
 
 test.describe('Navbar Navigation', () => {
   test.beforeEach(async ({ page }) => {
-    await page.goto('http://localhost:4321')
+    await page.goto('/')
     // wait for the page to load and sections to be present
     await page.waitForSelector('section#home')
     await page.waitForSelector('section#projects')
