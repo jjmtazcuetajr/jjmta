@@ -25,11 +25,8 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   use: {
-    /*
-      1. If PLAYWRIGHT_TEST_BASE_URL exists (in CI), use it.
-      2. Otherwise (locally), use localhost.
-    */
-    baseURL: process.env.PLAYWRIGHT_TEST_BASE_URL || 'http://localhost:4321',
+    /* Base URL to use in actions like `await page.goto('')`. */
+    baseURL: 'http://localhost:4321',
 
     /* Collect trace when retrying the failed test. See https://playwright.dev/docs/trace-viewer */
     trace: 'on-first-retry',
