@@ -74,7 +74,7 @@
 
   > .formgroup > .inputbox,
   > .formgroup > .messagebox {
-    background-color: oklch(26.9% 0 0deg);
+    background-color: oklch(20.5% 0 0deg);
     color: oklch(97% 0 0deg);
     outline: none;
     padding: 0.5rem;
@@ -112,6 +112,7 @@
   }
 
   > .formgroup > .messagebox {
+    color-scheme: dark;
     min-height: 7.5rem;
     resize: vertical;
   }
