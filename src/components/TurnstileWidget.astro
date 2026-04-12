@@ -1,7 +1,11 @@
 ---
 import { PUBLIC_TURNSTILE_SITE_KEY } from 'astro:env/client'
+
+const TEST_SITE_KEY = '1x00000000000000000000AA'
+
+const siteKey = import.meta.env.PROD ? PUBLIC_TURNSTILE_SITE_KEY : TEST_SITE_KEY
 ---
 
-<div class="cf-turnstile" data-sitekey={PUBLIC_TURNSTILE_SITE_KEY}></div>
+<div class="cf-turnstile" data-sitekey={siteKey}></div>
 
 <script async defer is:inline src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>
