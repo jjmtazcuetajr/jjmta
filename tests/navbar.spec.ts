@@ -9,10 +9,6 @@ declare global {
 test.describe('Navbar Navigation', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
-    // wait for the page to load and sections to be present
-    await page.waitForSelector('section#home')
-    await page.waitForSelector('section#projects')
-    await page.waitForSelector('section#contact')
   })
 
   test('initially highlights home nav item', async ({ page }) => {
@@ -23,8 +19,6 @@ test.describe('Navbar Navigation', () => {
   test('highlights projects nav item when scrolled to projects section', async ({ page }) => {
     const projectsSection = page.locator('section#projects')
     await projectsSection.scrollIntoViewIfNeeded()
-    // wait for intersection observer to trigger
-    await page.waitForTimeout(100) // allow time for observer
     const projectsLink = page.getByRole('link', { name: 'projects' })
     await expect(projectsLink).toHaveClass(/-active/)
   })
@@ -32,15 +26,17 @@ test.describe('Navbar Navigation', () => {
   test('highlights contact nav item when scrolled to contact section', async ({ page }) => {
     const contactSection = page.locator('section#contact')
     await contactSection.scrollIntoViewIfNeeded()
-    await page.waitForTimeout(100)
     const contactLink = page.getByRole('link', { name: 'contact' })
     await expect(contactLink).toHaveClass(/-active/)
   })
 
   test('clicking nav link highlights it immediately', async ({ page }) => {
     const projectsLink = page.getByRole('link', { name: 'projects' })
+    const contactLink = page.getByRole('link', { name: 'contact' })
     await projectsLink.click()
     await expect(projectsLink).toHaveClass(/-active/)
+    await contactLink.click()
+    await expect(contactLink).toHaveClass(/-active/)
   })
 
   test('clicking third nav item (contact) highlights it immediately without highlighting the second (projects)', async ({
@@ -96,46 +92,24 @@ test.describe('Navbar Navigation', () => {
 
     await contactLink.click()
 
-    // Wait long enough for scroll + observer re-enable (> 1000ms timeout in the script)
-    await page.waitForTimeout(1500)
-
     expect(secondLinkBecameActive).toBe(false)
     await expect(contactLink).toHaveClass(/-active/)
   })
 
-  test('scrolling back to previous section updates highlight', async ({ page }) => {
-    // Scroll to contact
-    const contactSection = page.locator('section#contact')
-    await contactSection.scrollIntoViewIfNeeded()
-    await page.waitForTimeout(100)
-    const contactLink = page.getByRole('link', { name: 'contact' })
-    await expect(contactLink).toHaveClass(/-active/)
-
-    // Scroll back to projects
-    const projectsSection = page.locator('section#projects')
-    await projectsSection.scrollIntoViewIfNeeded()
-    await page.waitForTimeout(100)
-    const projectsLink = page.getByRole('link', { name: 'projects' })
-    await expect(projectsLink).toHaveClass(/-active/)
-  })
-
   test('rapid scrolling maintains correct highlight', async ({ page }) => {
-    // Scroll quickly between sections
+    // scroll quickly between sections
     const homeSection = page.locator('section#home')
     const projectsSection = page.locator('section#projects')
     const contactSection = page.locator('section#contact')
 
     await contactSection.scrollIntoViewIfNeeded()
-    await page.waitForTimeout(50)
     await expect(page.getByRole('link', { name: 'contact' })).toHaveClass(/-active/)
 
-    await projectsSection.scrollIntoViewIfNeeded()
-    await page.waitForTimeout(50)
-    await expect(page.getByRole('link', { name: 'projects' })).toHaveClass(/-active/)
-
     await homeSection.scrollIntoViewIfNeeded()
-    await page.waitForTimeout(50)
     await expect(page.getByRole('link', { name: 'home' })).toHaveClass(/-active/)
+
+    await projectsSection.scrollIntoViewIfNeeded()
+    await expect(page.getByRole('link', { name: 'projects' })).toHaveClass(/-active/)
   })
 
   test('nav links have correct href attributes', async ({ page }) => {

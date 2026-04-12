@@ -8,7 +8,6 @@ test.describe('Email Copy Button', () => {
       await context.grantPermissions(['clipboard-read', 'clipboard-write'])
     }
     await page.goto('/')
-    await page.waitForSelector('email-copy-button')
   })
 
   test('copies email to clipboard, shows tooltip, and changes icon', async ({
