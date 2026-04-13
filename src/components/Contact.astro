@@ -4,7 +4,7 @@ import TurnstileWidget from './TurnstileWidget.astro'
 ---
 
 <section class="contact-section" id="contact">
-  <div class="container">
+  <div class="contact-container">
     <div class="intro">
       <h2 class="heading">Let's Work Together</h2>
       <p class="tagline">
@@ -79,10 +79,17 @@ import TurnstileWidget from './TurnstileWidget.astro'
       </form>
     </div>
   </div>
+  <div class="error-container">
+    <div class="submit-error" role="alert" tabindex="-1">
+      Something went wrong. Please check your connection and try again or reach me on
+      <a href="https://linkedin.com/in/jjmtazcueta" rel="noopener noreferrer" target="_blank"
+        >LinkedIn</a
+      >.
+    </div>
+  </div>
 </section>
 
 <script>
-  import type { FormspreeError } from '../types/form-error'
   import { getErrorMessage, normalizeInput } from '../utils/form-utils'
 
   const form = document.querySelector('.contact-form')
@@ -118,6 +125,10 @@ import TurnstileWidget from './TurnstileWidget.astro'
     async function handleSubmit(e: SubmitEvent) {
       e.preventDefault()
 
+      // if previous submit error message was shown, hide it when resubmitting the form
+      const submitError = document.querySelector('.submit-error')
+      if (submitError instanceof HTMLElement) submitError.removeAttribute('style')
+
       // show input errors upon form submission, if there are any
       formTextFields.forEach((textField) => {
         if (textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement) {
@@ -150,20 +161,18 @@ import TurnstileWidget from './TurnstileWidget.astro'
           },
         })
 
-        if (response.ok) {
-          showFormSubmissionFeedback()
-        } else {
-          const jsonError: FormspreeError = await response.json()
-          if (Object.hasOwn(jsonError, 'errors')) {
-            console.error(
-              `${jsonError.error}:\n\n - ${jsonError.errors.map((error) => 'Field: ' + error.field + ', Message: ' + error.message).join('\n - ')}`,
-            )
-          } else console.error('There was a problem submitting your form.')
+        if (response.ok) showFormSubmissionFeedback()
+        else throw new Error('Form submission failed with status ' + response.status)
+      } catch (error) {
+        if (error instanceof Error) console.error(error)
+        enableTextFields(formTextFields)
+        enableSubmitButton(submitButton)
 
-          showFormSubmissionFeedback(true)
+        // show submit error message
+        if (submitError instanceof HTMLElement) {
+          submitError.style.display = 'block'
+          submitError.focus()
         }
-      } catch {
-        showFormSubmissionFeedback(true)
       }
     }
   }
@@ -222,6 +231,19 @@ import TurnstileWidget from './TurnstileWidget.astro'
   }
 
   /**
+   * Re-enables all input and textarea elements in the provided NodeList.
+   * Elements that are not `HTMLInputElement` or `HTMLTextAreaElement` are ignored.
+   *
+   * @param textFields - A NodeList of DOM elements to iterate over.
+   */
+  function enableTextFields(textFields: NodeListOf<Element>) {
+    textFields.forEach((textField) => {
+      if (textField instanceof HTMLInputElement || textField instanceof HTMLTextAreaElement)
+        textField.disabled = false
+    })
+  }
+
+  /**
    * Disables a submit button and updates its appearance to indicate a loading state.
    *
    * If the provided element is a valid `HTMLButtonElement`, this function will:
@@ -247,27 +269,43 @@ import TurnstileWidget from './TurnstileWidget.astro'
   }
 
   /**
-   * Display feedback after the contact form is submitted.
+   * Re-enables a submit button and restores its original appearance.
    *
-   * This replaces the contents of the element with id `form-container` with a simple message indicating success or failure.
-   * The resulting feedback element is given focus so that screen readers announce it.
+   * If the provided element is a valid `HTMLButtonElement`, this function will:
+   * - Re-enable the button to allow clicks.
+   * - Restore the button's text content to `'Send Message'`.
+   * - Replace the button's SVG icon with the original send icon.
    *
-   * @param isError When true, shows an error message and styling; otherwise shows a success message.
+   * @param button The DOM element representing the submit button. Must be an `HTMLButtonElement` to apply changes.
    */
-  function showFormSubmissionFeedback(isError = false) {
+  function enableSubmitButton(button: Element | null) {
+    if (button && button instanceof HTMLButtonElement) {
+      button.disabled = false
+      button.childNodes[0].textContent = 'Send Message'
+
+      const buttonIcon = button.querySelector('svg')
+      if (buttonIcon && buttonIcon instanceof SVGSVGElement) {
+        buttonIcon.setAttribute('stroke-width', '2')
+        buttonIcon.innerHTML = `<path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z" />
+          <path d="m21.854 2.147-10.94 10.939" />`
+      }
+    }
+  }
+
+  /**
+   * Display a success feedback after the contact form is submitted.
+   *
+   * This replaces the contents of the element with id `form-container` with a simple message indicating success.
+   * The resulting feedback element is given focus.
+   */
+  function showFormSubmissionFeedback() {
     const formContainer = document.getElementById('form-container')
     if (!formContainer) return
 
-    const heading = isError ? 'Message failed to send.' : 'Message sent!'
-    const headingClass = isError ? 'class="error"' : ''
-    const body = isError
-      ? 'You can reach out to me through my socials located at the top or bottom of the page'
-      : "I'll get back to you within 1-3 business days"
-
     formContainer.innerHTML = `
       <div class="submit-feedback" tabindex="-1">
-        <h2 ${headingClass}>${heading}</h2>
-        <p>${body}.</p>
+        <h2>Message sent!</h2>
+        <p>I'll get back to you within 1-3 business days.</p>
       </div>
     `
 
