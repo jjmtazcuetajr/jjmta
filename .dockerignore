@@ -33,3 +33,7 @@ README.md
 Dockerfile
 .dockerignore
 docker-compose.yml
+
+# test results
+playwright-report
+test-results

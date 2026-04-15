@@ -25,7 +25,7 @@ This is my personal portfolio showcasing my projects and skills as a web develop
 
 ```sh
 # Install dependencies
-npm install
+npm ci
 
 # Start local dev server at localhost:4321
 npm run dev
@@ -57,6 +57,7 @@ docker compose up
 
 ```text
 /
+├── .github/workflows
 ├── public/
 ├── src/
 │   ├── assets/
@@ -75,32 +76,41 @@ docker compose up
 │   │   ├── components/
 │   │   ├── layout/
 │   │   └── main.scss
-│   └── types/
-└── package.json
+│   ├── types/
+│   │   └── project.ts
+│   └── utils/
+├── tests/
+└── package.json (and other files)
 ```
 
-### Directory Contents
+### Project Contents
 
-**public/** - Web app manifest, Apple Touch Icon, favicons, robots.txt
+**.github/workflows** - `formatter.yml`, `playwright.yml`
+
+**public/** - Web app manifest, Apple Touch Icon, favicons, open graph image
 
 **src/**
 
-- _**assets/**_ - screenshots (_.webp_ image files) from my other works for use in the projects section
-- _**components/navbar/**_ - astro components that make up the navbar
-- _**components/projects/**_ - projects section and the astro components that make up the project cards
-- _**components/**_ - patterned background, back-to-top button, hero section, socials, email copy button, contact section, turnstile widget, and footer components
-- _**types/**_ - TypeScript interface definitions
+- _**assets/**_ - screenshots from my other works for use in the projects section
+- _**components/navbar/**_ - `Navbar.astro`, `NavItem.astro`
+- _**components/projects/**_ - `ProjectAction.astro`, `ProjectCard.astro`, `Projects.astro`, `ProjectTag.astro`
+- _**components/**_ - `Background.astro`, `BackToTop.astro`, `Contact.astro`, `EmailCopyButton.astro`, `Footer.astro`, `Hero.astro`, `Socials.astro`, `TurnstileWidget.astro`
+- _**utils/**_ - `form-utils.ts`, `form-utils.test.ts` (unit test with [Vitest](https://vitest.dev/))
 
 **src/styles/** (based on the [7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern))
 
 - _**abstracts/**_ - `_mixins.scss`, `_variables.scss`
 - _**base/**_ - `_base.scss`, `_reset.scss`, `_typography.scss`
 - _**components/**_ - `_back-to-top.scss`, `_project-card.scss`, `_socials.scss`
-- _**layout/**_ - `_background.scss`, `_contacts.scss`, `_footer.scss`, `_hero.scss`, `_navbar.scss`, `_projects.scss`
+- _**layout/**_ - `_background.scss`, `_contact.scss`, `_footer.scss`, `_hero.scss`, `_navbar.scss`, `_projects.scss`
+
+**tests/** (e2e tests using [Playwright](https://playwright.dev/)) - `back-to-top.spec.ts`, `contact.spec.ts`, `email-copy-button.spec.ts`, `navbar.spec.ts`
 
 ## Deployment
 
-This project is not yet deployed. When ready, it can be deployed to any static hosting provider (Vercel, Netlify, Cloudflare Pages, etc.) by running `npm run build` and uploading the `./dist/` output.
+This project is deployed in Cloudflare Pages. This repository is connected directly for CI/CD — every push to `main` triggers an automatic build and deploy.
+
+Live site [here](https://jjmta.pages.dev/).
 
 ## License
 
