@@ -53,21 +53,4 @@
     right: 1.875rem;
     width: 2.75rem;
   }
-
-  // reduced motion support for accessibility
-  @media (prefers-reduced-motion: reduce) {
-    transition: {
-      duration: 150ms;
-      property: box-shadow, filter, opacity, visibility;
-      timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    &:hover {
-      translate: none;
-    }
-
-    &:active {
-      translate: none;
-    }
-  }
 }

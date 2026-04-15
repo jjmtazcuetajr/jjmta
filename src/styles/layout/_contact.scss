@@ -104,15 +104,11 @@
   > .formgroup > .inputbox,
   > .formgroup > .messagebox {
     background-color: oklch(20.5% 0 0deg);
+    border: 1px solid oklch(37.1% 0 0deg);
+    border-radius: 0.5rem;
     color: oklch(97% 0 0deg);
     outline: none;
     padding: 0.5rem;
-    border: {
-      color: oklch(37.1% 0 0deg);
-      radius: 0.5rem;
-      style: solid;
-      width: 1px;
-    }
     transition: {
       duration: 200ms, 200ms, 100ms;
       property: border-color, box-shadow, opacity;

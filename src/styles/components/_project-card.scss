@@ -11,13 +11,11 @@
   width: 100%;
 
   > .cover {
+    border-top-left-radius: 0.75rem;
+    border-top-right-radius: 0.75rem;
     height: 12.5rem;
     overflow: hidden;
     width: 100%;
-    border-top: {
-      left-radius: 0.75rem;
-      right-radius: 0.75rem;
-    }
   }
 
   > .cover > .image {
@@ -68,7 +66,7 @@
     }
   }
 
-  // for styling the horizontal scrollbar in WebKit-based browsers like Chrome
+  // for styling the horizontal scrollbar in Chrome, Edge, and other similar browsers
   > .content > .tags::-webkit-scrollbar {
     height: 0.35rem;
   }
