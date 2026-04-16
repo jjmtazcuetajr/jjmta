@@ -1,10 +1,10 @@
 # JJMTA
 
-A personal web development portfolio built with Astro, TypeScript, and SCSS, featuring a clean design, responsive layout, and a working contact form.
+A personal portfolio built with Astro, TypeScript, and SCSS, featuring a clean design, responsive layout, and a working contact form.
 
 ## About
 
-This is my personal portfolio showcasing my projects and skills as a web developer. Built for performance and simplicity.
+This is my personal portfolio showcasing my projects and skills as a web developer. Aside from web development, in the future I plan to add other programming projects from other areas like game development, web scraping, etc. Built for performance and simplicity.
 
 ## Tech Stack
 
