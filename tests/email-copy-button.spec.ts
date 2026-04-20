@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('Email Copy Button', () => {
+test.describe('Email Copy Button @smoke', () => {
   test.beforeEach(async ({ page, context, browserName }) => {
     if (browserName === 'chromium') {
       // this condition is needed because clipboard permissions are only supported in Chromium browsers

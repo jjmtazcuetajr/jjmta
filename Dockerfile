@@ -1,5 +1,5 @@
 # node version
-FROM node:23.3.0-alpine
+FROM node:24.14.1-alpine
 
 # set working directory
 WORKDIR /app
