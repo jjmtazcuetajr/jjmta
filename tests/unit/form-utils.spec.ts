@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import { getErrorMessage, normalizeInput } from './form-utils'
+import { getErrorMessage, normalizeInput } from '../../src/utils/form-utils'
 
 /**
  * Create a required HTMLInputElement for tests.

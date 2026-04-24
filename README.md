@@ -57,54 +57,33 @@ docker compose up
 
 ```text
 /
-├── .github/workflows
-├── public/
+├── .github/workflows    # ci workflows
+├── public/              # public files
 ├── src/
-│   ├── assets/
+│   ├── assets/          # project screenshots
 │   ├── components/
-│   │   ├── navbar/
-│   │   └── projects/
-│   ├── data/
+│   │   ├── navbar/      # navbar component
+│   │   └── projects/    # project section and project card component
+│   ├── data/            # project list data (json)
 │   │   └── projects.json
 │   ├── layouts/
 │   │   └── Layout.astro
 │   ├── pages/
 │   │   └── index.astro
-│   ├── styles/
-│   │   ├── abstracts/
-│   │   ├── base/
-│   │   ├── components/
-│   │   ├── layout/
+│   ├── styles/          # SCSS (7-1 pattern)
+│   │   ├── abstracts/   # variables and mixins
+│   │   ├── base/        # base styles
+│   │   ├── components/  # component styles
+│   │   ├── layout/      # page section styles (navbar, footer, hero, etc.)
 │   │   └── main.scss
-│   ├── types/
+│   ├── types/           # typescript types and interfaces
 │   │   └── project.ts
-│   └── utils/
+│   └── utils/           # typescript utility functions
 ├── tests/
+│   ├── e2e/             # playwright
+│   └── unit/            # vitest
 └── package.json (and other files)
 ```
-
-### Project Contents
-
-**.github/workflows** - `formatter.yml`, `playwright.yml`
-
-**public/** - Web app manifest, Apple Touch Icon, favicons, open graph image
-
-**src/**
-
-- _**assets/**_ - screenshots from my other works for use in the projects section
-- _**components/navbar/**_ - `Navbar.astro`, `NavItem.astro`
-- _**components/projects/**_ - `ProjectAction.astro`, `ProjectCard.astro`, `Projects.astro`, `ProjectTag.astro`
-- _**components/**_ - `Background.astro`, `BackToTop.astro`, `Contact.astro`, `EmailCopyButton.astro`, `Footer.astro`, `Hero.astro`, `Socials.astro`, `TurnstileWidget.astro`
-- _**utils/**_ - `form-utils.ts`, `form-utils.test.ts` (unit test with [Vitest](https://vitest.dev/))
-
-**src/styles/** (based on the [7-1 pattern](https://sass-guidelin.es/#the-7-1-pattern))
-
-- _**abstracts/**_ - `_mixins.scss`, `_variables.scss`
-- _**base/**_ - `_base.scss`, `_reset.scss`, `_typography.scss`
-- _**components/**_ - `_back-to-top.scss`, `_project-card.scss`, `_socials.scss`
-- _**layout/**_ - `_background.scss`, `_contact.scss`, `_footer.scss`, `_hero.scss`, `_navbar.scss`, `_projects.scss`
-
-**tests/** (e2e tests using [Playwright](https://playwright.dev/)) - `back-to-top.spec.ts`, `contact.spec.ts`, `email-copy-button.spec.ts`, `navbar.spec.ts`
 
 ## Deployment
 
