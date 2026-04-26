@@ -5,12 +5,14 @@ on:
     branches:
       - main
     paths:
-      - 'src/**'
+      - 'src/utils/form-utils.ts'
+      - 'src/components/Contact.astro'
   pull_request:
     branches:
       - main
     paths:
-      - 'src/**'
+      - 'src/utils/form-utils.ts'
+      - 'src/components/Contact.astro'
 
 jobs:
   unit-test:

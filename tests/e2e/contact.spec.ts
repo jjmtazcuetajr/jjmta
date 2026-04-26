@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test'
 
-test.describe('Contact Form @smoke', () => {
+test.describe('Contact Form', () => {
   test.beforeEach(async ({ page }) => {
     await page.goto('/')
   })
@@ -49,24 +49,19 @@ test.describe('Contact Form @smoke', () => {
     await expect(messageInput).not.toHaveClass(/-invalid/)
   })
 
-  test('contact form submits successfully', async ({ page }) => {
+  test('contact form shows success feedback on mock response @smoke', async ({ page }) => {
     const submitButton = page.getByRole('button', { name: 'Send Message' })
     const nameInput = page.getByRole('textbox', { name: 'Name' })
     const emailInput = page.getByRole('textbox', { name: 'Email' })
     const messageInput = page.getByRole('textbox', { name: 'Message' })
 
     // set up a network route to mock the form submission response
-    await page.route('**/*', (route) => {
-      const request = route.request()
-      if (request.method() === 'POST' && request.url().includes('formspree.io')) {
-        route.fulfill({
-          status: 200, // simulate a successful submission
-          contentType: 'application/json',
-          body: JSON.stringify({}),
-        })
-      } else {
-        route.continue()
-      }
+    await page.route('**/formspree.io/f/**', (route) => {
+      route.fulfill({
+        status: 200, // simulate a successful submission
+        contentType: 'application/json',
+        body: JSON.stringify({ ok: true }),
+      })
     })
 
     // fill in the form fields
@@ -80,24 +75,19 @@ test.describe('Contact Form @smoke', () => {
     await expect(page.locator('.submit-success')).toBeVisible()
   })
 
-  test('contact form submission fails', async ({ page }) => {
+  test('contact form shows error feedback on mock response', async ({ page }) => {
     const submitButton = page.getByRole('button', { name: 'Send Message' })
     const nameInput = page.getByRole('textbox', { name: 'Name' })
     const emailInput = page.getByRole('textbox', { name: 'Email' })
     const messageInput = page.getByRole('textbox', { name: 'Message' })
 
     // set up a network route to mock a failed form submission response
-    await page.route('**/*', (route) => {
-      const request = route.request()
-      if (request.method() === 'POST' && request.url().includes('formspree.io')) {
-        route.fulfill({
-          status: 400, // simulate a client error (e.g., bad request)
-          contentType: 'application/json',
-          body: JSON.stringify({ error: 'Bad Request' }),
-        })
-      } else {
-        route.continue()
-      }
+    await page.route('**/formspree.io/f/**', (route) => {
+      route.fulfill({
+        status: 400, // simulate a client error (e.g., bad request)
+        contentType: 'application/json',
+        body: JSON.stringify({ error: 'Bad Request' }),
+      })
     })
 
     // fill in the form fields
