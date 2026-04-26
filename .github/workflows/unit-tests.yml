@@ -1,4 +1,4 @@
-name: formatter
+name: 'Unit Tests (Vitest)'
 
 on:
   push:
@@ -12,11 +12,8 @@ on:
     paths:
       - 'src/**'
 
-permissions:
-  contents: write
-
 jobs:
-  quality:
+  unit-test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -28,14 +25,8 @@ jobs:
           node-version-file: '.nvmrc'
           cache: 'npm'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: npm ci
 
-      - name: Format
-        run: npm run format
-
-      - name: Lint SCSS
-        run: npm run lint:scss:fix
-
-      - name: Lint Astro
-        run: npm run lint:fix
+      - name: Run unit tests
+        run: npm run test

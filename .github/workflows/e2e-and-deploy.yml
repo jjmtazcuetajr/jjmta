@@ -1,0 +1,103 @@
+name: E2E (Playwright) Tests and Deploy
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+  pull_request:
+    types: [opened, reopened, synchronize, ready_for_review]
+    branches:
+      - main
+    paths:
+      - 'src/**'
+      - 'package.json'
+      - 'package-lock.json'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test-and-deploy:
+    timeout-minutes: 10
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup Node
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: '.nvmrc'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        run: npm run build
+        env:
+          PUBLIC_FORMSPREE_ENDPOINT: ${{ github.event_name == 'pull_request' && secrets.FORMSPREE_TEST_ENDPOINT || secrets.FORMSPREE_PROD_ENDPOINT }}
+          PUBLIC_TURNSTILE_SITE_KEY: ${{ github.event_name == 'pull_request' && '1x00000000000000000000AA' || secrets.PROD_TURNSTILE_SITE_KEY }}
+
+      # Get the Playwright version to use as a cache key
+      - name: Get Playwright version
+        id: playwright-version
+        run: echo "version=$(npx playwright --version)" >> $GITHUB_OUTPUT
+
+      # Cache browsers
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+
+      # Only install if the cache was NOT found
+      - name: Install Playwright browsers (Cache Miss)
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
+        run: npx playwright install chromium firefox webkit --with-deps
+
+      # 4. Even if browsers are cached, Linux still needs the system dependencies
+      - name: Install Playwright system dependencies (Cache Hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium firefox webkit
+
+      # Run fast e2e (smoke) tests in the local runner
+      - name: Run smoke tests (local)
+        if: github.event_name == 'pull_request'
+        run: npx playwright test --project=chromium --grep @smoke
+
+      # Deploy Preview (on pull request) or Production (on push/merge to main)
+      - name: Deploy to Cloudflare Pages
+        id: deployment
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name=jjmta
+
+      # Run full e2e tests (against the actual preview URL)
+      - name: Run full e2e tests (preview URL)
+        if: github.event_name == 'pull_request' && github.event.pull_request.draft == false
+        run: npx playwright test --project=chromium --project=firefox --project=webkit
+        env:
+          # This overrides the default base URL in your config
+          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.deployment.outputs.url }}
+
+      # Quick check to ensure the production deploy is live and healthy
+      - name: Post-Merge Production Check
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        run: npx playwright test --project=chromium --grep @smoke
+        env:
+          PLAYWRIGHT_TEST_BASE_URL: ${{ steps.deployment.outputs.url }}
+
+      - uses: actions/upload-artifact@v6
+        if: ${{ !cancelled() }}
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 7
