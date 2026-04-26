@@ -40,7 +40,7 @@ jobs:
       - name: Build project
         run: npm run build
         env:
-          PUBLIC_FORMSPREE_ENDPOINT: ${{ github.event_name == 'pull_request' && secrets.FORMSPREE_TEST_ENDPOINT || secrets.FORMSPREE_PROD_ENDPOINT }}
+          PUBLIC_FORMSPREE_ENDPOINT: ${{ secrets.FORMSPREE_PROD_ENDPOINT }}
           PUBLIC_TURNSTILE_SITE_KEY: ${{ github.event_name == 'pull_request' && '1x00000000000000000000AA' || secrets.PROD_TURNSTILE_SITE_KEY }}
 
       # Get the Playwright version to use as a cache key

@@ -5,7 +5,7 @@ test.describe('Social links @smoke', () => {
     await page.goto('/')
   })
 
-  test('x and github social links are valid and not broken', async ({ page }) => {
+  test('linkedin and github social links are valid', async ({ page }) => {
     const instances = [
       page.locator('.hero-section > .social-links'),
       page.locator('.footer > .social-links'),
