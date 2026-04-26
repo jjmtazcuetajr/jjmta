@@ -11,13 +11,15 @@ test.describe('Social links @smoke', () => {
       page.locator('.footer > .social-links'),
     ]
 
+    await expect(page.locator('.social-links')).toHaveCount(2)
+
     for (const socialLink of instances) {
-      const xLink = socialLink.getByRole('link', { name: 'Visit my X profile' })
+      const linkedinLink = socialLink.getByRole('link', { name: 'Visit my LinkedIn profile' })
       const githubLink = socialLink.getByRole('link', { name: 'Visit my GitHub profile' })
 
-      await expect(xLink).toHaveAttribute('href', 'https://x.com/jjmtazcuetajr')
-      await expect(xLink).toHaveAttribute('target', '_blank')
-      await expect(xLink).toHaveAttribute('rel', 'noopener noreferrer')
+      await expect(linkedinLink).toHaveAttribute('href', 'https://linkedin.com/in/jjmtazcueta')
+      await expect(linkedinLink).toHaveAttribute('target', '_blank')
+      await expect(linkedinLink).toHaveAttribute('rel', 'noopener noreferrer')
 
       await expect(githubLink).toHaveAttribute('href', 'https://github.com/jjmtazcuetajr')
       await expect(githubLink).toHaveAttribute('target', '_blank')
