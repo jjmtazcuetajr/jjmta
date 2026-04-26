@@ -64,7 +64,7 @@ jobs:
       # 4. Even if browsers are cached, Linux still needs the system dependencies
       - name: Install Playwright system dependencies (Cache Hit)
         if: steps.playwright-cache.outputs.cache-hit == 'true'
-        run: npx playwright install-deps chromium firefox webkit
+        run: npx playwright install chromium firefox webkit --with-deps
 
       # Run fast e2e (smoke) tests in the local runner
       - name: Run smoke tests (local)
