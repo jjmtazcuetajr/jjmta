@@ -49,22 +49,22 @@ jobs:
         run: echo "version=$(npx playwright --version)" >> $GITHUB_OUTPUT
 
       # Cache browsers
-      # - name: Cache Playwright Browsers
-      #   id: playwright-cache
-      #   uses: actions/cache@v5
-      #   with:
-      #     path: ~/.cache/ms-playwright
-      #     key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
+      - name: Cache Playwright Browsers
+        id: playwright-cache
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/ms-playwright
+          key: ${{ runner.os }}-playwright-${{ steps.playwright-version.outputs.version }}
 
       # Only install if the cache was NOT found
       - name: Install Playwright browsers (Cache Miss)
-        # if: steps.playwright-cache.outputs.cache-hit != 'true'
+        if: steps.playwright-cache.outputs.cache-hit != 'true'
         run: npx playwright install chromium firefox webkit --with-deps
 
       # 4. Even if browsers are cached, Linux still needs the system dependencies
-      # - name: Install Playwright system dependencies (Cache Hit)
-      #   if: steps.playwright-cache.outputs.cache-hit == 'true'
-      #   run: npx playwright install-deps chromium firefox webkit
+      - name: Install Playwright system dependencies (Cache Hit)
+        if: steps.playwright-cache.outputs.cache-hit == 'true'
+        run: npx playwright install-deps chromium firefox webkit
 
       # Run fast e2e (smoke) tests in the local runner
       - name: Run smoke tests (local)
