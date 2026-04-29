@@ -66,9 +66,9 @@ docker compose up
 │   │   └── projects/    # project section and project card component
 │   ├── data/            # project list data (json)
 │   │   └── projects.json
-│   ├── layouts/
+│   ├── layouts/         # html document
 │   │   └── Layout.astro
-│   ├── pages/
+│   ├── pages/           # components that are found inside <body>
 │   │   └── index.astro
 │   ├── styles/          # SCSS (7-1 pattern)
 │   │   ├── abstracts/   # variables and mixins
@@ -82,12 +82,12 @@ docker compose up
 ├── tests/
 │   ├── e2e/             # playwright
 │   └── unit/            # vitest
-└── package.json (and other files)
+└── ... (other repo files)
 ```
 
 ## Deployment
 
-This project is deployed in Cloudflare Pages. This repository is connected directly for CI/CD — every push to `main` triggers an automatic build and deploy.
+This project is deployed to Cloudflare Pages via GitHub Actions using [`cloudflare/wrangler-action`](https://github.com/cloudflare/wrangler-action). Automatic deployments from Cloudflare are disabled — deployments are triggered by the CI workflow instead, which allows the preview URL to be captured and used for end-to-end tests before promoting to production.
 
 Live site [here](https://jjmta.pages.dev/).
 
